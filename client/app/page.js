@@ -1,9 +1,5 @@
-import { Box, Grid } from "@mui/material"
-import CssBaseline from '@mui/material/CssBaseline';
-
-// Components
-import JSONData from "../pages/JSONData"
-import SideBar from "../components/SideBar"
+import { Typography, Box } from "@mui/material"
+import PageHeader from '../components/PageHeader'
 
 let style = {
   display: "flex",
@@ -14,21 +10,11 @@ let style = {
 
 export default function Home() {
   return (
-    <div className="App">
-      <div style={style}>
-        <CssBaseline />
-          <Grid container spacing={0} style={{height: "100vh"}}>
-            <Grid item xs={3} md={2}>
-              <SideBar />
-            </Grid>
-            <Grid item xs={9} md={10}>
-              <Box sx={{padding: "1rem"}}>
-                {/* Content goes here */}
-                <JSONData />
-              </Box>
-            </Grid>
-          </Grid>
-      </div>
-    </div>
+    <Box>
+      <PageHeader title="Welcome!" />
+      <Typography align="center" variant="body1">
+        Please selection an option on the left to begin!
+      </Typography>
+    </Box>
   )
 }
