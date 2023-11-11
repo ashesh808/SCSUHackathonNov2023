@@ -26,6 +26,6 @@ class Youtube:
             ydl.download(URL)
 
 if __name__ == '__main__':
-    Test = Youtube(URL='https://www.youtube.com/watch?v=gXyrQ7FNIKk&list=PLliBvQE3gg9cA3zMs2b0gokZVsLWtvcGu&pp=iAQB')
+    Test = Youtube(URL='https://www.youtube.com/watch?v=LfaMVlDaQ24&pp=ygUMaGFydmFyZCBjczUw')
     Test.Download()
     
