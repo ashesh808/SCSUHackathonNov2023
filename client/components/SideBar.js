@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Paper, Grid, Button, Typography } from '@mui/material';
+import Link from 'next/link';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import DataObjectIcon from '@mui/icons-material/DataObject';
@@ -8,17 +9,17 @@ const sideBarData = [
   {
     title: 'Upload PDF',
     icon: PictureAsPdfIcon,
-    url: '/uploadpdf',
+    url: '/UploadPDF',
   },
   {
     title: 'YouTube Link',
     icon: YouTubeIcon,
-    url: '/youtubelink',
+    url: '/YouTubeLink',
   },
   {
     title: 'JSON Data',
     icon: DataObjectIcon,
-    url: '/jsondata',
+    url: '/JSONData',
   },
 ];
 
@@ -43,9 +44,11 @@ export default function SideBar() {
 
           {sideBarData.map((item, index) => (
             <Grid item key={index} sx={{ width: '100%' }}>
-              <Button variant="contained" startIcon={<item.icon />} fullWidth>
-                {item.title}
-              </Button>
+              <Link href={item.url}>
+                <Button variant="contained" startIcon={<item.icon />} fullWidth>
+                  {item.title}
+                </Button>
+              </Link>
             </Grid>
           ))}
         </Grid>
