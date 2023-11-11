@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
-from pdf_uploader import PDFUploader
-from flashcard_viewer import FlashCardViewer
+from modules.pdf_uploader import PDFUploader
+from modules.flashcard_viewer import FlashCardViewer
 
 
 app = Flask(__name__)
