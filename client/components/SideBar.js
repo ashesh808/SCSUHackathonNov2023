@@ -1,54 +1,61 @@
-"use client"
-
-import YouTubeIcon from '@mui/icons-material/YouTube';
+import React from 'react';
+import { Box, Paper, Grid, Button, Typography } from '@mui/material';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
+import YouTubeIcon from '@mui/icons-material/YouTube';
 import DataObjectIcon from '@mui/icons-material/DataObject';
 
-import { usePathname } from 'next/navigation';
-import React, { useMemo } from 'react';
-import Box from './Box';
-import SideBarItem from './SideBarItem';
+const sideBarData = [
+  {
+    title: 'Upload PDF',
+    icon: PictureAsPdfIcon,
+    url: '/uploadpdf',
+  },
+  {
+    title: 'YouTube Link',
+    icon: YouTubeIcon,
+    url: '/youtubelink',
+  },
+  {
+    title: 'JSON Data',
+    icon: DataObjectIcon,
+    url: '/jsondata',
+  },
+];
 
-const SideBar = ({children}) => {
-  const pathname = usePathname()
+/**
+ * Acts as a way for users to brose the site. Intended to always be displayed on the left
+ * @returns {JSX.Element} A SideBar component.
+ */
+export default function SideBar() {
+  return (
+    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      <Paper elevation={10} sx={{ flex: 1, display: 'flex', flexDirection: 'column', backgroundColor: '#B0B0B0', padding: '0.5rem' }}>
+        <Grid container rowSpacing={1} direction="column" justifyContent="center" alignItems="center">
+          <Grid item>
+            <img
+              src="https://www.adaptivewfs.com/wp-content/uploads/2020/07/logo-placeholder-image-300x300.png.webp"
+              style={{
+                width: '10rem',
+                height: '10rem',
+              }}
+            />
+          </Grid>
 
-  const routes = useMemo(
-    () => [
-        {
-            icon: PictureAsPdfIcon,
-            label: "PDF",
-            active: pathname === "/uploadPDF",
-            href: "/uploadPDF",
-        },
-        {
-            icon: YouTubeIcon,
-            label: "Youtube",
-            active: pathname === "/uploadYoutube",
-            href: "/uploadYoutube",
-        },
-        {
-            icon: DataObjectIcon,
-            label: "JSON",
-            active: pathname === "/uploadJSON",
-            href: "/uploadJSON",
-        }
-    ]
-  )
-  
-    return (
-    <div className="flex h-full">
-       <div className="hidden md:flex overflow-y-auto flex-col gap-y-2 bg-white h-full w-[300px] p-2">
-            <Box className="overflow-y-auto h-full">
-                <div className="flex flex-col gap-y-4 px-5 py-5">
-                    {routes.map((item) => (
-                        <SideBarItem key={item.label} {...item}/>
-                    ))}
-                </div>
-            </Box>
-        </div>
-        <main>{children}</main>
-    </div>
-  )
+          {sideBarData.map((item, index) => (
+            <Grid item key={index} sx={{ width: '100%' }}>
+              <Button variant="contained" startIcon={<item.icon />} fullWidth>
+                {item.title}
+              </Button>
+            </Grid>
+          ))}
+        </Grid>
+      </Paper>
+
+      <Box style={{backgroundColor: "#808080", padding: "0.5rem"}}>
+        <Typography align="center" variant="subtitle1" style={{fontSize: "0.8rem"}}>
+            Made for the SCSU Fall 2023 Hackathon
+        </Typography>
+      </Box>
+    </Box>
+  );
 }
-
-export default SideBar
