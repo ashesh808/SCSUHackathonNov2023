@@ -1,5 +1,7 @@
 from flask import Flask, request, jsonify
 from pdf_uploader import PDFUploader
+from flashcard_viewer import FlashCardViewer
+
 
 app = Flask(__name__)
 
@@ -12,14 +14,11 @@ pdf_uploader = PDFUploader(app)
 
 @app.route('/uploadpdf', methods=['POST'])
 def upload_pdf():
-     # Check if the post request has the file part
     if 'file' not in request.files:
         return jsonify({'error': 'No file part'})
-
+    
     file = request.files['file']
 
-    # If the user does not select a file, the browser might
-    # submit an empty file without a filename
     if file.filename == '':
         return jsonify({'error': 'No selected file'})
 
@@ -35,9 +34,16 @@ def generate_flashcards():
 
 @app.route('/getflashcarddata', methods=['GET'])
 def get_flashcard_data():
-    # Get flashcard data logic here
-    # You may want to retrieve flashcard data and return it
-    return jsonify({'message': 'Flashcard data retrieved successfully'})
+    flashcard_id = request.args.get('id')
+
+    if not flashcard_id:
+        return jsonify({'error': 'ID parameter is missing'})
+
+    flashcard_viewer = FlashCardViewer(flashcard_id)
+    path = flashcard_viewer.ReturnPath()
+    flashcard_data = flashcard_viewer.ReadJson()
+
+    return jsonify({'message': 'Flashcard data retrieved successfully', 'path': path, 'data': flashcard_data})
 
 if __name__ == '__main__':
     app.run(debug=True)
