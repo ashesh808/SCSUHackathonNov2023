@@ -1,16 +1,31 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify
+from pdf_uploader import PDFUploader
 
 app = Flask(__name__)
 
-@app.route('/')
-def home():
-    return jsonify({'message': 'Welcome to the Flashcard Server!'})
+
+UPLOAD_FOLDER = 'documents'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+pdf_uploader = PDFUploader(app)
+
 
 @app.route('/uploadpdf', methods=['POST'])
 def upload_pdf():
-    # Handle PDF upload logic here
-    # You may want to save the file and perform any necessary processing
-    return jsonify({'message': 'PDF uploaded successfully'})
+     # Check if the post request has the file part
+    if 'file' not in request.files:
+        return jsonify({'error': 'No file part'})
+
+    file = request.files['file']
+
+    # If the user does not select a file, the browser might
+    # submit an empty file without a filename
+    if file.filename == '':
+        return jsonify({'error': 'No selected file'})
+
+    result = pdf_uploader.upload_pdf(file)
+    return jsonify(result)
+
 
 @app.route('/generatecards', methods=['GET'])
 def generate_flashcards():
