@@ -7,21 +7,11 @@ import { Typography, Box, Modal, Button, Paper, CircularProgress } from '@mui/ma
  * Shows a pop-up with a load bar. Intended to be shown while waiting for a server response
  * @returns {JSX.Element} A WaitModal component.
  */
-export default function WaitModal ({  }) {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = (event, reason) => {
-    if (reason !== 'backdropClick') {
-      setOpen(false)
-    }
-  }
-
+export default function WaitModal ({ open }) {
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
       <Modal
         open={open}
-        onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         sx={{display: "flex", alignItems: "center", justifyContent: "center"}}
