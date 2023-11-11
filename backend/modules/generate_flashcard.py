@@ -1,4 +1,6 @@
 from pdf_parser import PdfParser
+from gpt_client_wrapper import GPTClientWrapper
+import uuid
 
 class FlashCardGenerator:
     def __init__(self, id):
@@ -21,8 +23,14 @@ class FlashCardGenerator:
         else:
             raise ValueError("No data available. Call ReadData first to parse data.")
     
-    def send_query(self):
+    def save_json_response_withprefix(self, message, prefixID):
+        return "Not implemented "+ message + prefixID
+    
+    def merge_json_response(self, prefixID):
         return "Not implemented"
     
-    def merge_response(self):
+    def send_query(self):
+        prefixID = str(uuid.uuid4())
         return "Not implemented"
+    
+    
