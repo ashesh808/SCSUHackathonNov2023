@@ -18,12 +18,13 @@ export default function Home() {
       <div style={style}>
         <CssBaseline />
           <Grid container spacing={0} style={{height: "100vh"}}>
-            <Grid item xs={3}>
+            <Grid item xs={3} md={2}>
               <SideBar />
             </Grid>
-            <Grid item xs={9}>
+            <Grid item xs={9} md={10}>
               <Box sx={{padding: "1rem"}}>
-                <Flashcards />
+                {/* Content goes here */}
+                
               </Box>
             </Grid>
           </Grid>
