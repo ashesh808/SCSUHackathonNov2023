@@ -35,7 +35,6 @@ def generate_flashcards():
 @app.route('/getflashcarddata', methods=['GET'])
 def get_flashcard_data():
     flashcard_id = request.args.get('id')
-
     if not flashcard_id:
         return jsonify({'error': 'ID parameter is missing'})
 
