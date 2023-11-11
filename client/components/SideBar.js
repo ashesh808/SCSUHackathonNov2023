@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Paper, Grid, Button } from '@mui/material';
+import { Box, Paper, Grid, Button, Typography } from '@mui/material';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import DataObjectIcon from '@mui/icons-material/DataObject';
@@ -24,17 +24,19 @@ const sideBarData = [
 
 export default function SideBar() {
   return (
-    <Box sx={{ width: '100%', height: '100%' }}>
-      <Paper elevation={5} sx={{ width: '100%', height: '100%', padding: '0.5rem' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      <Paper elevation={10} sx={{ flex: 1, display: 'flex', flexDirection: 'column', backgroundColor: '#B0B0B0', padding: '0.5rem' }}>
         <Grid container rowSpacing={1} direction="column" justifyContent="center" alignItems="center">
           <Grid item>
-            <img 
-              src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.adaptivewfs.com%2Fpartners%2Flogo-placeholder-image%2F&psig=AOvVaw0f27cnicyGA4jqOFfHa9wS&ust=1699807742162000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCLDuybezvIIDFQAAAAAdAAAAABAE"
-              width={50}
-              height={50}
+            <img
+              src="https://www.adaptivewfs.com/wp-content/uploads/2020/07/logo-placeholder-image-300x300.png.webp"
+              style={{
+                width: '10rem',
+                height: '10rem',
+              }}
             />
           </Grid>
-          
+
           {sideBarData.map((item, index) => (
             <Grid item key={index} sx={{ width: '100%' }}>
               <Button variant="contained" startIcon={<item.icon />} fullWidth>
@@ -44,6 +46,12 @@ export default function SideBar() {
           ))}
         </Grid>
       </Paper>
+
+      <Box style={{backgroundColor: "#808080", padding: "0.5rem"}}>
+        <Typography align="center" variant="subtitle1" style={{fontSize: "0.8rem"}}>
+            Made for the SCSU Fall 2023 Hackathon
+        </Typography>
+      </Box>
     </Box>
   );
 }
