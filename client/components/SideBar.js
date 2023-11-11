@@ -33,13 +33,15 @@ export default function SideBar() {
       <Paper elevation={10} sx={{ flex: 1, display: 'flex', flexDirection: 'column', backgroundColor: '#B0B0B0', padding: '0.5rem' }}>
         <Grid container rowSpacing={1} direction="column" justifyContent="center" alignItems="center">
           <Grid item>
-            <img
-              src="https://www.adaptivewfs.com/wp-content/uploads/2020/07/logo-placeholder-image-300x300.png.webp"
-              style={{
-                width: '10rem',
-                height: '10rem',
-              }}
-            />
+            <Link href="/">
+              <img
+                src="https://www.adaptivewfs.com/wp-content/uploads/2020/07/logo-placeholder-image-300x300.png.webp"
+                style={{
+                  width: '10rem',
+                  height: '10rem',
+                }}
+              />
+            </Link>
           </Grid>
 
           {sideBarData.map((item, index) => (
