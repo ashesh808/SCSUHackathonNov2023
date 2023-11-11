@@ -3,6 +3,7 @@
 import React from "react";
 import { Typography, Paper, Box } from '@mui/material';
 import "./clickable.css";
+import { useEffect } from "react";
 
 /**
  * Shows quiz questions to the user in flashcard format. Users can click to reveal the answer
@@ -14,6 +15,10 @@ import "./clickable.css";
  */
 export default function InfoCard ({ cardNumber, questionText, answerText }) {
   const [showAnswer, setShowAnswer] = React.useState(false);
+
+  useEffect(() => {
+    setShowAnswer(false);
+  }, [cardNumber])
 
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
