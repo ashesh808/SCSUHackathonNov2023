@@ -17,17 +17,9 @@ class PdfParser:
                     text += page.extract_text()
         except Exception as e:
             print(f"An error occurred: {str(e)}")
-            
         # Split the text into lines
         lines = text.splitlines()
-
         # Join the lines back together with spaces
         cleaned_text = ' '.join(lines)
-
         return cleaned_text
 
-if __name__ == "__main__":
-    file_name = 'test.pdf'
-    pdf_parser = PdfParser(file_name)
-    extracted_text = pdf_parser.pdf_to_text()
-    print(extracted_text)
