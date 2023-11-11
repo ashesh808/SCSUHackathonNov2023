@@ -3,6 +3,10 @@
 import React from "react";
 import { Typography, Box, Modal, Button, Paper, CircularProgress } from '@mui/material';
 
+/**
+ * Shows a pop-up with a load bar. Intended to be shown while waiting for a server response
+ * @returns {JSX.Element} A WaitModal component.
+ */
 export default function WaitModal ({  }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);

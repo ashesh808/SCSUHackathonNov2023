@@ -4,6 +4,7 @@ import ReplayIcon from '@mui/icons-material/Replay';
 import "../components/clickable.css";
 import InfoCard from "../components/InfoCard"
 import SpeakContent from "../components/SpeakContent"
+import PageHeader from '../components/PageHeader'
 
 const cardNumber = 2
 const questionText = "What is 9+10?"
@@ -12,6 +13,8 @@ const answerText = "This is a stupid meme from like 10 years ago"
 export default function Flashcards () {
   return (
     <Box>
+      <PageHeader title="Learn" />
+
       <Box style={{ display: "flex", justifyContent: "center", marginBottom: "0.5rem"}}>
         <Pagination count={4} />
       </Box>

@@ -22,6 +22,10 @@ const sideBarData = [
   },
 ];
 
+/**
+ * Acts as a way for users to brose the site. Intended to always be displayed on the left
+ * @returns {JSX.Element} A SideBar component.
+ */
 export default function SideBar() {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
