@@ -8,7 +8,6 @@ app = Flask(__name__)
 
 UPLOAD_FOLDER = 'data/pdfdocument'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
 pdf_uploader = PDFUploader(app)
 
 
@@ -16,12 +15,9 @@ pdf_uploader = PDFUploader(app)
 def upload_pdf():
     if 'file' not in request.files:
         return jsonify({'error': 'No file part'})
-    
     file = request.files['file']
-
     if file.filename == '':
         return jsonify({'error': 'No selected file'})
-
     result = pdf_uploader.upload_pdf(file)
     return jsonify(result)
 
@@ -37,11 +33,9 @@ def get_flashcard_data():
     flashcard_id = request.args.get('id')
     if not flashcard_id:
         return jsonify({'error': 'ID parameter is missing'})
-
     flashcard_viewer = FlashCardViewer(flashcard_id)
     path = flashcard_viewer.ReturnPath()
     flashcard_data = flashcard_viewer.ReadJson()
-
     return jsonify({'message': 'Flashcard data retrieved successfully', 'path': path, 'data': flashcard_data})
 
 if __name__ == '__main__':
