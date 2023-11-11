@@ -17,7 +17,7 @@ const sideBarData = [
     url: '/YouTubeLink',
   },
   {
-    title: 'JSON Data',
+    title: 'Card Data',
     icon: DataObjectIcon,
     url: '/JSONData',
   },
