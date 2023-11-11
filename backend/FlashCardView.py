@@ -1,5 +1,6 @@
 import os
 import json
+
 class FlashCardID:
     def __init__(self, ID):
         self.FlashID = ID
