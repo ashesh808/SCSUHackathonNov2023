@@ -7,9 +7,9 @@ import InfoCard from "../components/InfoCard"
 import SpeakContent from "../components/SpeakContent"
 import PageHeader from '../components/PageHeader'
 
-const cardNumber = 2
-const questionText = "What is 9+10?"
-const answerText = "This is a stupid meme from like 10 years ago"
+// const cardNumber = 2
+// const questionText = "What is 9+10?"
+// const answerText = "This is a stupid meme from like 10 years ago"
 
 const cards = [
   {
@@ -28,13 +28,25 @@ const cards = [
 
 export default function Flashcards () {
   const [currentPage, setCurrentPage] = useState(1);
+  const [shuffledCards, setShuffledCards] = useState(cards);
 
+  const shuffleCards = () => {
+    // Use a copy of the original cards array to avoid mutating the original array
+    const newShuffledCards = [...cards];
+    for (let i = newShuffledCards.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [newShuffledCards[i], newShuffledCards[j]] = [newShuffledCards[j], newShuffledCards[i]];
+    }
+    setShuffledCards(newShuffledCards);
+    setCurrentPage(1); // Reset to the first page after shuffling
+  };
+  
   const handleChangePage = (event, page) => {
     setCurrentPage(page);
   };
 
-  const currentCardIndex = (currentPage - 1) % cards.length;
-  const currentCard = cards[currentCardIndex];
+  const currentCardIndex = (currentPage - 1) % shuffledCards.length;
+  const currentCard = shuffledCards[currentCardIndex];
   
   return (
     <Box>
@@ -57,7 +69,7 @@ export default function Flashcards () {
           </Tooltip>
         </Grid>
         <Grid item xs={2}>
-          <Tooltip title="Shuffle">
+          <Tooltip title="Shuffle" onClick={shuffleCards}>
             <Avatar className="clickable">
               <ShuffleIcon />
             </Avatar>
