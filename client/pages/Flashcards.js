@@ -57,7 +57,7 @@ export default function Flashcards () {
       </Box>
       
       <Box style={{ paddingRight: "5rem", paddingLeft: "5rem"}}>
-        <InfoCard cardNumber={currentCardIndex + 1} questionText={currentCard.questionText} answerText={currentCard.answerText} />
+        <InfoCard cardNumber={currentCardIndex + 1} questionText={currentCard.questionText} answerText={currentCard.answerText} currentCardIndex={currentCardIndex} />
       </Box>
 
       <Grid container justifyContent="center" alignItems="center" style={{ marginTop: "1rem", marginBottom: "1rem", paddingRight: "5rem", paddingLeft: "5rem" }}>
