@@ -1,8 +1,8 @@
 import PyPDF2
 
 class PdfParser:
-    def __init__(self, pdf_path):
-        self.pdf_path = pdf_path
+    def __init__(self, file_name):
+        self.pdf_path = 'documents/' + file_name
 
     def pdf_to_text(self):
         text = ""
@@ -27,7 +27,7 @@ class PdfParser:
         return cleaned_text
 
 if __name__ == "__main__":
-    pdf_path = 'documents/test.pdf'
-    pdf_parser = PdfParser(pdf_path)
+    file_name = 'test.pdf'
+    pdf_parser = PdfParser(file_name)
     extracted_text = pdf_parser.pdf_to_text()
     print(extracted_text)
