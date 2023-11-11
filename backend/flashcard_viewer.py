@@ -1,7 +1,7 @@
 import os
 import json
 
-class FlashCardID:
+class FlashCardViewer:
     def __init__(self, ID):
         self.FlashID = ID
 
@@ -19,10 +19,10 @@ class FlashCardID:
         except FileNotFoundError:
             return("File does not exist")
 
-if __name__ == "__main__":
-    Id = str(input())
-    Card1 = FlashCardID(Id)
-    Path = Card1.ReturnPath() ## returns the path of the flash card json file
-    print(Path)
-    data = Card1.ReadJson()
-    print(data)
+# if __name__ == "__main__":
+#     Id = str(input())
+#     Card1 = FlashCardID(Id)
+#     Path = Card1.ReturnPath() 
+#     print(Path)
+#     data = Card1.ReadJson()
+#     print(data)
