@@ -8,21 +8,15 @@ class FlashCardViewer:
     def ReturnPath(self):
         self.FlashID = str(self.FlashID)
         self.FlashID = self.FlashID + '.json'
-        self.path = os.path.join('SCSUHackathonNov2023\\backend\\documents\\Json', self.FlashID)
+        self.path = 'data/flashcarddata/' + self.FlashID
         return (str(self.path))
 
     def ReadJson(self):
         try:
             file = open(self.path, "r")
             data = json.loads(file.read())
-            return(data)
+            return data
         except FileNotFoundError:
-            return("File does not exist")
-
-# if __name__ == "__main__":
-#     Id = str(input())
-#     Card1 = FlashCardID(Id)
-#     Path = Card1.ReturnPath() 
-#     print(Path)
-#     data = Card1.ReadJson()
-#     print(data)
+            return "File does not exist"
+        except Exception as e:
+            return f"Error reading JSON: {str(e)}"

@@ -6,7 +6,7 @@ from flashcard_viewer import FlashCardViewer
 app = Flask(__name__)
 
 
-UPLOAD_FOLDER = 'documents'
+UPLOAD_FOLDER = 'data/pdfdocument'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 pdf_uploader = PDFUploader(app)
