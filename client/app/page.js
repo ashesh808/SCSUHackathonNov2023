@@ -2,7 +2,7 @@ import { Box, Grid } from "@mui/material"
 import CssBaseline from '@mui/material/CssBaseline';
 
 // Components
-import UploadPDF from "../pages/UploadPDF"
+import YouTubeLink from "../pages/YouTubeLink"
 import SideBar from "../components/SideBar"
 
 let style = {
@@ -24,7 +24,7 @@ export default function Home() {
             <Grid item xs={9} md={10}>
               <Box sx={{padding: "1rem"}}>
                 {/* Content goes here */}
-                <UploadPDF />
+                <YouTubeLink />
               </Box>
             </Grid>
           </Grid>
