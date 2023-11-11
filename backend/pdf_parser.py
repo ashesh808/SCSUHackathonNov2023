@@ -2,7 +2,7 @@ import PyPDF2
 
 class PdfParser:
     def __init__(self, file_name):
-        self.pdf_path = 'documents/' + file_name
+        self.pdf_path = 'data/pdfdocument' + file_name
 
     def pdf_to_text(self):
         text = ""

@@ -8,7 +8,7 @@ class FlashCardViewer:
     def ReturnPath(self):
         self.FlashID = str(self.FlashID)
         self.FlashID = self.FlashID + '.json'
-        self.path = 'documents/Json/' + self.FlashID
+        self.path = 'data/flashcarddata/' + self.FlashID
         return (str(self.path))
 
     def ReadJson(self):
