@@ -15,15 +15,12 @@ import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Link from 'next/link'
 
 const drawerWidth = 240;
-const siteName = "CSP"
+const siteName = "WEBSITE TITLE HERE"
 const navItems = [
-  {name: 'Home', path: '/'},
-  {name: 'Browse', path: '/browse'},
-  {name: 'Upload', path: '/upload'},
-  {name: 'Profile', path: '/profile/KINGTUT10101'},
-  {name: 'Login', path: '/login'},
+  
 ]
 
 export default function Header(props) {
@@ -36,18 +33,20 @@ export default function Header(props) {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }} stickyHeader={true}>
-      <Typography variant="h6" sx={{ my: 2 }}>
-        {siteName}
-      </Typography>
+      <Link href="/">
+        <Typography variant="h6" sx={{ my: 2 }}>
+          {siteName}
+        </Typography>
+      </Link>
       <Divider />
       <List>
         {navItems.map((item) => (
           <ListItem key={item.name} disablePadding>
-            {/* <Link to={item.path}> */}
+            <Link href={item.path}>
               <ListItemButton sx={{ textAlign: 'center' }}>
                 <ListItemText primary={item.name} />
               </ListItemButton>
-            {/* </Link> */}
+            </Link>
           </ListItem>
         ))}
       </List>
@@ -70,20 +69,22 @@ export default function Header(props) {
           >
             {/* <MenuIcon /> */}
           </IconButton>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: {sm: 'block' } }}
-          >
-            {siteName}
-          </Typography>
+          <Link href="/">
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{ flexGrow: 1, display: {sm: 'block' } }}
+            >
+              {siteName}
+            </Typography>
+          </Link>
           <Box sx={{ display: { sm: 'block' } }}>
             {navItems.map((item) => (
-              // <Link to={item.path}>
+              <Link href={item.path}>
                 <Button key={item.name} sx={{ color: '#fff' }}>
                   {item.name}
                 </Button>
-              // </Link>
+              </Link>
             ))}
           </Box>
         </Toolbar>
