@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Typography, Paper, Box } from '@mui/material';
+import "./clickable.css";
 
 /**
  * Shows quiz questions to the user in flashcard format. Users can click to reveal the answer
@@ -16,21 +17,17 @@ export default function InfoCard ({ cardNumber, questionText, answerText }) {
   
   return (
     <Box>
-      <Paper elevation={5} sx={{
-        transition: '0.3s',
-        '&:hover': {
-          backgroundColor: '#E8E8E8', // Change the background color when hovered
-        },
-        padding: "1rem"
-        }}
+      <Paper elevation={5} className="clickable" style={{padding: "1rem", transform: showAnswer ? "rotateY(180deg)" : "rotateY(0deg)", minHeight: '17rem'}}
         onClick={() => setShowAnswer(!showAnswer)}
       >
+        <Box style={{transform: showAnswer ? "rotateY(180deg)" : "rotateY(0deg)"}}>
         <Typography align="center" variant="h4">
           {showAnswer ? "Answer" : "Question"} #{cardNumber}
         </Typography>
         <Typography align="center" variant="body1">
           {showAnswer ? answerText : questionText}
         </Typography>
+        </Box>
       </Paper>
     </Box>
   )

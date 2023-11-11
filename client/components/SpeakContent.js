@@ -2,6 +2,7 @@
 
 import CampaignIcon from '@mui/icons-material/Campaign';
 import { Avatar } from '@mui/material'
+import "./clickable.css";
 
 /**
  * Speaks text aloud with TTS
@@ -18,7 +19,7 @@ export default function SpeakContent ({ textToSpeak }) {
 
   return (
     <div>
-      <Avatar onClick={handleSpeak}>
+      <Avatar className="clickable" onClick={handleSpeak}>
         <CampaignIcon />
       </Avatar>
     </div>
