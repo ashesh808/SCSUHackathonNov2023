@@ -1,12 +1,16 @@
 'use client'
 
 import React from "react";
-import { Typography, Box, Modal, Button, Paper } from '@mui/material';
+import { Typography, Box, Modal, Button, Paper, CircularProgress } from '@mui/material';
 
-export default function WaitModal () {
+export default function WaitModal ({  }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = (event, reason) => {
+    if (reason !== 'backdropClick') {
+      setOpen(false)
+    }
+  }
 
   return (
     <div>
@@ -19,11 +23,11 @@ export default function WaitModal () {
         sx={{display: "flex", alignItems: "center", justifyContent: "center"}}
       >
         <Paper sx={{padding: "2rem"}}>
-          <Typography id="modal-modal-title" variant="h6">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+          <Box style={{display: "flex", justifyContent: "center"}}>
+            <CircularProgress />
+          </Box>
+          <Typography id="modal-modal-title" variant="h6" marginTop="1rem">
+            Please wait...
           </Typography>
         </Paper>
       </Modal>
