@@ -2,7 +2,7 @@ import speech_recognition as sr
 import os
 from pydub import AudioSegment
 from pydub.silence import split_on_silence
-from youtube import Youtube
+from modules.youtube import Youtube
 import time
 import shutil
 
@@ -12,8 +12,8 @@ class YoutubeParser(Youtube):
     def __init__(self, file, Url):
         Youtube.__init__(self, file, Url)
         self.extaud = self.file + '.wav'
-        self.readaud = os.path.join('backend\\modules\\data\\youtuberawdata',self.extaud)
-        self.saveaud = ('backend\\modules\\data\\youtubeparseddata')
+        self.readaud = os.path.join('modules/data/youtuberawdata',self.extaud)
+        self.saveaud = ('modules/data/youtubeparseddata')
     
     
     def ParseAudio(self, path):
@@ -35,7 +35,7 @@ class YoutubeParser(Youtube):
                                   keep_silence = 500,
                                   )
         FolderName = 'AudioChunks'
-        tempfolder = os.path.join('backend\\modules\\data\\youtuberawdata', FolderName)
+        tempfolder = os.path.join('modules/data/youtuberawdata', FolderName)
         if not os.path.isdir(tempfolder):
             os.mkdir(tempfolder)
         WholeText = ''
@@ -62,7 +62,7 @@ class YoutubeParser(Youtube):
         f = open(path, 'a')
         f.write(self.text)
         f.close()
-        shutil.rmtree('backend\\modules\\data\\youtuberawdata\\AudioChunks')
+        shutil.rmtree('modules/data/youtuberawdata/AudioChunks')
         os.remove(self.readaud)
     
 
