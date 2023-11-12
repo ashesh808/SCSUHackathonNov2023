@@ -23,7 +23,14 @@ export default function Flashcards () {
       const flashcardResponse = await fetch(`https://localhost:5000/getflashcarddata?url=${FlashcardsID}`, {
         method: 'GET',
       })
-      setCards (response.flashcard_data)
+      if (Array.isArray (flashcardResponse.flashcard_data) === true) {
+        setCards (flashcardResponse.flashcard_data)
+      }
+      else {
+        // Handle error
+        console.error('Error getting flashcard data');
+        alert('Error getting flashcard data');
+      }
 
     } catch (error) {
       console.error(error);
