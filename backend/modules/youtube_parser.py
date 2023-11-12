@@ -44,7 +44,7 @@ class YoutubeParser(Youtube):
             chunk_filename = os.path.join(tempfolder, f'chunk{i}.wav')
             AuidoChunk.export(chunk_filename, format='wav')
 
-            try:
+            try:        
                 print(chunk_filename)
                 text = self.ParseAudio(chunk_filename)
             except sr.UnknownValueError as e:
