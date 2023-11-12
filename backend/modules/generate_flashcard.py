@@ -27,15 +27,11 @@ class FlashCardGenerator:
             raise ValueError("No data available. Call ReadData first to parse data.")
     
     def save_json_response_withprefix(self, jsonResponse, prefixID):
-        response_id = str(uuid.uuid4())
-        filename = f"{prefixID}_response_{response_id}.json"
-        filepath = os.path.join('data/rawgptdata', filename)
+        filename = self.id + ".json"
+        filepath = os.path.join('/Users/ashesh808/Documents/BSCinCS/Fall23/Hackathon/SCSUHackathonNov2023/backend/modules/data/flashcarddata', filename)
         with open(filepath, 'w') as json_file:
             json.dump(jsonResponse, json_file, indent=2)
         return filename
-    
-    def merge_json_response(self, prefixID):
-        return "Not implemented"
     
     def parse_string_to_json(self,input_string):
         data_list = []
@@ -54,14 +50,16 @@ class FlashCardGenerator:
         prefixID = str(uuid.uuid4())
         gpt_wrapper = GPTClientWrapper()
         substrings = self.batch_strings()
+        all_responses = []
         name = ":not executed"
         for i, substring in enumerate(substrings):
             #Get response from GPT client
             gptResponse = gpt_wrapper.get_flashcards_with_tags(substring)
             #Convert string response to json
             jsonResponse = self.parse_string_to_json(gptResponse)
-            #Save the file as Json
-            name = self.save_json_response_withprefix(jsonResponse, prefixID)
+            all_responses.append(jsonResponse)
+        #Save the file as Json
+        name = self.save_json_response_withprefix(all_responses, prefixID)
         return "Last Json file saved with name " + name
     
 if __name__ == "__main__":
@@ -73,8 +71,8 @@ if __name__ == "__main__":
     response = flashcard_generator.send_query()
     print(response)
 
-    input_string = "<questions> What is the capital of France? <answer> Paris<questions> Who is the president of the USA? <answer> Joe Biden"
-    parsed_data = flashcard_generator.parse_string_to_json(input_string)
-    print(parsed_data)
+    # input_string = "<questions> What is the capital of France? <answer> Paris<questions> Who is the president of the USA? <answer> Joe Biden"
+    # parsed_data = flashcard_generator.parse_string_to_json(input_string)
+    # print(parsed_data)
 
 
