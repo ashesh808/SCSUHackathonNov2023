@@ -1,8 +1,3 @@
-# SCSUHackathonNov2023
-Certainly! Below is the documentation for your Flask application:
-
----
-
 # Flashcard Generator API Documentation
 
 ## Overview
@@ -77,6 +72,8 @@ The Flashcard Generator API allows users to upload PDF documents, send YouTube v
 ### Note
 - Flashcards are generated based on the PDF data specified by the `id` and `dataformat` parameters.
 
+Certainly! Here's the updated documentation for the `/getflashcarddata` endpoint with the example data:
+
 ## Get Flashcard Data
 
 **Endpoint:** `/getflashcarddata`  
@@ -91,9 +88,50 @@ The Flashcard Generator API allows users to upload PDF documents, send YouTube v
   - If successful:
     ```json
     {
-      "flashcard_data": {
-        // Flashcard data here
-      }
+      "flashcard_data": [
+        [
+          {
+            "question": "What is the movie being discussed in the text?",
+            "answer": "Inception"
+          },
+          {
+            "question": "Who is the director of the movie?",
+            "answer": "Christopher Nolan"
+          },
+          {
+            "question": "What is one of the unique auditory elements in the movie?",
+            "answer": "The \"BRAAAM\" sound or \"Inception horn\""
+          }
+        ],
+        [
+          {
+            "question": "What are three visual aspects that spark curiosity in the opening sequence?",
+            "answer": "The starting sequence uses visuals to spark curiosity in the minds of viewers."
+          },
+          {
+            "question": "How is the protagonist, Cobb, introduced in the movie?",
+            "answer": "Cobb is introduced as a troubled person lost in the sea and later as a skilled professional selling his services."
+          },
+          {
+            "question": "How does the director establish the motives of the characters in the exposition?",
+            "answer": "The director efficiently establishes the motives of the characters through flashbacks, dialogue, and character interactions."
+          }
+        ],
+        [
+          {
+            "question": "What movie is the text talking about?",
+            "answer": "Inception."
+          },
+          {
+            "question": "Who is the director of Inception?",
+            "answer": "Christopher Nolan."
+          },
+          {
+            "question": "How does the director hook the audience in the opening minutes?",
+            "answer": "By raising a lot of questions and tying everything together by the end."
+          }
+        ]
+      ]
     }
     ```
   - If error:
@@ -103,18 +141,68 @@ The Flashcard Generator API allows users to upload PDF documents, send YouTube v
     }
     ```
 
+### Example
+```bash
+curl http://127.0.0.1:5000/getflashcarddata?id=1
+```
+
+```json
+{
+  "flashcard_data": [
+    [
+      {
+        "question": "What is the movie being discussed in the text?",
+        "answer": "Inception"
+      },
+      {
+        "question": "Who is the director of the movie?",
+        "answer": "Christopher Nolan"
+      },
+      {
+        "question": "What is one of the unique auditory elements in the movie?",
+        "answer": "The \"BRAAAM\" sound or \"Inception horn\""
+      }
+    ],
+    [
+      {
+        "question": "What are three visual aspects that spark curiosity in the opening sequence?",
+        "answer": "The starting sequence uses visuals to spark curiosity in the minds of viewers."
+      },
+      {
+        "question": "How is the protagonist, Cobb, introduced in the movie?",
+        "answer": "Cobb is introduced as a troubled person lost in the sea and later as a skilled professional selling his services."
+      },
+      {
+        "question": "How does the director establish the motives of the characters in the exposition?",
+        "answer": "The director efficiently establishes the motives of the characters through flashbacks, dialogue, and character interactions."
+      }
+    ],
+    [
+      {
+        "question": "What movie is the text talking about?",
+        "answer": "Inception."
+      },
+      {
+        "question": "Who is the director of Inception?",
+        "answer": "Christopher Nolan."
+      },
+      {
+        "question": "How does the director hook the audience in the opening minutes?",
+        "answer": "By raising a lot of questions and tying everything together by the end."
+      }
+    ]
+  ]
+}
+```
+
 ## Running the Application
 
 To run the application, execute the following command in the terminal:
 
 ```bash
-python your_file_name.py
+python app.py
 ```
 
 Ensure that Flask is installed (`pip install Flask`) before running the application.
 
 The application will run in debug mode and can be accessed at `http://127.0.0.1:5000/` in your web browser.
-
----
-
-Replace `your_file_name.py` with the actual name of your Python script containing the Flask application.
