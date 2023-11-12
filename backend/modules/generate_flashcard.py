@@ -1,6 +1,5 @@
-from pdf_parser import PdfParser
-from gpt_client_wrapper import GPTClientWrapper
-from gpt_client_wrapper import GPTClientWrapper
+from modules.pdf_parser import PdfParser
+from modules.gpt_client_wrapper import GPTClientWrapper
 import uuid
 import json
 import os
@@ -26,7 +25,7 @@ class FlashCardGenerator:
         else:
             raise ValueError("No data available. Call ReadData first to parse data.")
     
-    def save_json_response_withprefix(self, jsonResponse, prefixID):
+    def save_json_response_withprefix(self, jsonResponse):
         filename = self.id + ".json"
         filepath = os.path.join('/Users/ashesh808/Documents/BSCinCS/Fall23/Hackathon/SCSUHackathonNov2023/backend/modules/data/flashcarddata', filename)
         with open(filepath, 'w') as json_file:
@@ -35,7 +34,7 @@ class FlashCardGenerator:
     
     def parse_string_to_json(self,input_string):
         data_list = []
-        sets = input_string.split("<questions>")
+        sets = input_string.split("<question>")
         for set_part in sets[1:]:
             set_parts = set_part.split("<answer>")
             if len(set_parts) == 2:
@@ -55,11 +54,12 @@ class FlashCardGenerator:
         for i, substring in enumerate(substrings):
             #Get response from GPT client
             gptResponse = gpt_wrapper.get_flashcards_with_tags(substring)
+            print(gptResponse)
             #Convert string response to json
             jsonResponse = self.parse_string_to_json(gptResponse)
             all_responses.append(jsonResponse)
         #Save the file as Json
-        name = self.save_json_response_withprefix(all_responses, prefixID)
+        name = self.save_json_response_withprefix(all_responses)
         return "Last Json file saved with name " + name
     
 if __name__ == "__main__":
