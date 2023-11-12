@@ -20,6 +20,6 @@ class PDFUploader:
             os.makedirs(self.app.config['UPLOAD_FOLDER'], exist_ok=True)
             # Save the file with the unique ID as the filename
             file.save(os.path.join(self.app.config['UPLOAD_FOLDER'], f"{unique_id}.pdf"))
-            return {'message': 'PDF uploaded successfully', 'file_id': unique_id}
+            return {'id': unique_id}
         else:
             return {'error': 'Invalid file format'}
