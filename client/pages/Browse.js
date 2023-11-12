@@ -31,7 +31,7 @@ export default function BrowseComponent({  }) {
     setWaiting (true)
 
     // This is where we make our first API call
-    fetch('https://jsonplaceholder.typicode.com/todos/1')
+    fetch('http://jsonplaceholder.typicode.com/todos/1')
     .then(response => response.json())
     .then(data => {
       // Close the WaitModal after receiving the response

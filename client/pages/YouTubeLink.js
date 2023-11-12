@@ -16,13 +16,13 @@ export default function YouTubeLink () {
     
     try {
       // Upload data to server
-      const sendResponse = await fetch(`https://localhost:5000/sendyoutubeurl?url=${urlText}`, {
+      const sendResponse = await fetch(`http://localhost:5000/sendyoutubeurl?url=${urlText}`, {
         method: 'POST',
       });
       
       // Tell server to generate flashcards for the uploaded document
       const documentID = sendResponse.id
-      const generateResponse = await fetch(`https://localhost:5000/generatecards?id=${documentID}&dataformat=yt`, {
+      const generateResponse = await fetch(`http://localhost:5000/generatecards?id=${documentID}&dataformat=yt`, {
         method: 'GET',
       })
 

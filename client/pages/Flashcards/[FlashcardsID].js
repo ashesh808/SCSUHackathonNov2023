@@ -40,7 +40,7 @@ export default function Flashcards () {
     
       try {
         // Get flash card data
-        const flashcardResponse = await fetch(`https://localhost:5000/getflashcarddata?id=${FlashcardsID}`, {
+        const flashcardResponse = await fetch(`http://localhost:5000/getflashcarddata?id=${FlashcardsID}`, {
           method: 'GET',
         })
         if (Array.isArray (flashcardResponse.flashcard_data) === true) {

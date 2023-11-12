@@ -24,14 +24,14 @@ export default function UploadPDF () {
       formData.append('file', uploadedFile);
 
       // Upload data to server
-      const uploadResponse = await fetch('https://localhost:5000/uploadpdf', {
+      const uploadResponse = await fetch('http://localhost:5000/uploadpdf', {
         method: 'POST',
         body: formData,
       });
       
       // Tell server to generate flashcards for the uploaded document
       const documentID = uploadResponse.id
-      const generateResponse = await fetch(`https://localhost:5000/generatecards?id=${documentID}&dataformat=pdf`, {
+      const generateResponse = await fetch(`http://localhost:5000/generatecards?id=${documentID}&dataformat=pdf`, {
         method: 'GET',
       })
 
