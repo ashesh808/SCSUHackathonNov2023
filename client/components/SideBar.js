@@ -5,6 +5,7 @@ import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import DataObjectIcon from '@mui/icons-material/DataObject';
 import SearchIcon from '@mui/icons-material/Search';
+import SchoolTwoToneIcon from '@mui/icons-material/SchoolTwoTone';
 
 const sideBarData = [
   {
@@ -29,6 +30,8 @@ const sideBarData = [
   },
 ];
 
+const websiteName = "GeniusDeck"
+
 /**
  * Acts as a way for users to brose the site. Intended to always be displayed on the left
  * @returns {JSX.Element} A SideBar component.
@@ -38,16 +41,13 @@ export default function SideBar() {
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       <Paper elevation={10} sx={{ flex: 1, display: 'flex', flexDirection: 'column', backgroundColor: '#B0B0B0', padding: '0.5rem' }}>
         <Grid container rowSpacing={1} direction="column" justifyContent="center" alignItems="center">
-          <Grid item>
+          <Grid item style={{display: "flex", justifyContent: "center", flexDirection: "column"}}>
             <Link href="/">
-              <img
-                src="https://www.adaptivewfs.com/wp-content/uploads/2020/07/logo-placeholder-image-300x300.png.webp"
-                style={{
-                  width: '10rem',
-                  height: '10rem',
-                }}
-              />
+              <SchoolTwoToneIcon style={{width: "7rem", height: "7rem"}} />
             </Link>
+            <Typography align="center" variant="h4" style={{fontSize: "1.2rem"}}>
+                {websiteName}
+            </Typography>
           </Grid>
 
           {sideBarData.map((item, index) => (
