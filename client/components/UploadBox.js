@@ -10,7 +10,9 @@ import { useDropzone } from 'react-dropzone';
  * @param {Object} props
  * @param {string} props.title The big text at the top of the box
  * @param {string} props.subtitle The small text at the bottom of the box
- * @param {string} props.onDropCallback The function called when the files are uploaded
+ * @param {string} props.onSuccess The function called when the file is selected. It will pass the file object as the first param
+ * @param {string} props.onError The function called when the file is selected. It will pass the error string as the first param
+ * @param {Array} props.acceptedTypes An array of MIME types that determine which files are able to be selected
  * @returns {JSX.Element} An UploadBox component.
  */
 export default function UploadBox ({ title, subtitle, onSuccess, onError, acceptedTypes }) {
