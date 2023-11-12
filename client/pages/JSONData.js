@@ -26,7 +26,7 @@ export default function JSONData () {
       // Additional logic with the response data
       alert(JSON.stringify (data));
 
-      router.push('/Flashcards')
+      router.push('/Flashcards/5555')
     })
     .catch(error => {
       // Handle errors, close the WaitModal, and show an error message
