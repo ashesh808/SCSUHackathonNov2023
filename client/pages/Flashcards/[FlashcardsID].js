@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useRouter } from 'next/router';
 import { Box, Avatar, Tooltip, Pagination, Grid } from "@mui/material"
 import ShuffleIcon from '@mui/icons-material/Shuffle';
@@ -7,22 +7,31 @@ import "../../components/clickable.css";
 import InfoCard from "../../components/InfoCard"
 import SpeakContent from "../../components/SpeakContent"
 import PageHeader from '../../components/PageHeader'
+import DownloadIcon from '@mui/icons-material/Download';
 
-let cards = []
-for (let i = 0; i < 50; i++) {
-  cards.push({
-    questionText: `question: ${i+1}`,
-    answerText: `answer: ${i+1}`,
-  })
-}
+//put If subDir is JSON like Flashcards/JSON then get the query data and parse it 
 
 export default function Flashcards () {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [shuffledCards, setShuffledCards] = useState(cards);
-  const [showAnswer, setShowAnswer] = useState(false);
+
+  let cards = [
+    {
+      questionText: "default question",
+      answerText: "default answer",
+    }
+  ]
 
   const router = useRouter();
   const { FlashcardsID } = router.query;
+
+  if (FlashcardsID === "JSON") {
+    const data = router.query.data;
+    cards = JSON.parse(data);
+    //console.log(cards)
+  }
+  
+  const [currentPage, setCurrentPage] = useState(1);
+  const [showAnswer, setShowAnswer] = useState(false);
+  const [shuffledCards, setShuffledCards] = useState(cards);
 
   const shuffleCards = () => {
     // Use a copy of the original cards array to avoid mutating the original array
@@ -37,6 +46,19 @@ export default function Flashcards () {
   
   const handleChangePage = (event, page) => {
     setCurrentPage(page);
+  };
+
+  const downloadJson = () => {
+    const jsonContent = JSON.stringify(cards, null, 2);
+    const blob = new Blob([jsonContent], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'flashcards.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   };
 
   const currentCardIndex = (currentPage - 1) % shuffledCards.length;
@@ -79,7 +101,14 @@ export default function Flashcards () {
               </Avatar>
             </Tooltip>
           </Grid>
-          <Grid item xs={6} />
+          <Grid item xs={2}>
+          <Tooltip title="Download JSON" onClick={downloadJson}>
+            <Avatar className="clickable">
+              <DownloadIcon style={{ color: 'black' }} />
+            </Avatar>
+          </Tooltip>
+        </Grid>
+          <Grid item xs={4} />
           <Grid item xs={2} style={{display: "flex", justifyContent: "flex-end"}} >
               {showAnswer
                 ? <SpeakContent textToSpeak={currentCard.answerText} />

@@ -38,7 +38,7 @@ export default function JSONData () {
   
           router.push({
             pathname: "/Flashcards/JSON",
-            //query: { data: JSON.stringify(jsonData) },
+            query: { data: JSON.stringify(jsonData) },
           });
         } catch (parseError) {
           throw new Error("Error parsing JSON: " + parseError.message);
