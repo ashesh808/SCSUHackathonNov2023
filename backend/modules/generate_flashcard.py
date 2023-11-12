@@ -5,21 +5,26 @@ import json
 import os
 
 class FlashCardGenerator:
-    def __init__(self, id):
+    def __init__(self, pdf_path, yt_path, flashcard_path, id):
         self.id = id
+        self.pdf_path = pdf_path
+        self.yt_path = yt_path
+        self.flashcard_path = flashcard_path
         self.parsed_data = None
 
     def ReadData(self, dataformat):
         if (dataformat == "pdf"):
-            pdf_parser = PdfParser(file_name=self.id)
+            pdf_parser = PdfParser(self.pdf_path, file_name=self.id)
             parsed_data = pdf_parser.pdf_to_text()
             self.parsed_data = parsed_data
         elif(dataformat == "yt"):
-            txt_file_path = "modules/data/youtubeparseddata/" + self.id + ".txt"
+            txt_file_path = os.path.join(self.yt_path, self.id + ".txt")
             if os.path.exists(txt_file_path):
                 with open(txt_file_path, 'r', encoding='utf-8') as txt_file:
                     parsed_data = txt_file.read()
                 self.parsed_data = parsed_data
+            else:
+                print("Error finding the txt file")
         else:
             raise NotImplementedError("Data format not supported yet")
 
@@ -33,7 +38,7 @@ class FlashCardGenerator:
     
     def save_json_response_withprefix(self, jsonResponse):
         filename = self.id + ".json"
-        filepath = os.path.join('modules/data/flashcarddata', filename)
+        filepath = os.path.join(self.flashcard_path, filename)
         with open(filepath, 'w') as json_file:
             json.dump(jsonResponse, json_file, indent=2)
         return filename
@@ -52,7 +57,6 @@ class FlashCardGenerator:
 
 
     def send_query(self):
-        prefixID = str(uuid.uuid4())
         gpt_wrapper = GPTClientWrapper()
         substrings = self.batch_strings()
         all_responses = []

@@ -8,12 +8,12 @@ import shutil
 
 
 class YoutubeParser(Youtube):
-
-    def __init__(self, file, Url):
-        Youtube.__init__(self, file, Url)
+    def __init__(self,yt_rawdata_path, yt_parseddata_path, file, Url):
+        Youtube.__init__(self,yt_rawdata_path, yt_parseddata_path, file, Url)
         self.extaud = self.file + '.wav'
-        self.readaud = os.path.join('modules/data/youtuberawdata',self.extaud)
-        self.saveaud = ('modules/data/youtubeparseddata')
+        self.yt_rawdata_path = yt_rawdata_path
+        self.readaud = os.path.join(self.yt_rawdata_path,self.extaud)
+        self.saveaud = yt_parseddata_path
     
     
     def ParseAudio(self, path):
@@ -35,7 +35,7 @@ class YoutubeParser(Youtube):
                                   keep_silence = 500,
                                   )
         FolderName = 'AudioChunks'
-        tempfolder = os.path.join('modules/data/youtuberawdata', FolderName)
+        tempfolder = os.path.join(self.yt_rawdata_path, FolderName)
         if not os.path.isdir(tempfolder):
             os.mkdir(tempfolder)
         WholeText = ''
@@ -62,20 +62,6 @@ class YoutubeParser(Youtube):
         f = open(path, 'a')
         f.write(self.text)
         f.close()
-        shutil.rmtree('modules/data/youtuberawdata/AudioChunks')
+        shutil.rmtree(os.path.join(self.yt_rawdata_path,'AudioChunks'))
         os.remove(self.readaud)
     
-
-if __name__ == '__main__':
-    name = input('Input file name ')
-    URL = input('Input URl ')
-    start_time = time.time()
-    test = YoutubeParser(file=name, Url=URL)
-    #test.file = 'Rickroll'
-    #test.url = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-    test.Download()
-    print(test.read)
-    test.ReadCaptions() 
-    test.LargeAudioParse() #Speech to text
-    test.WriteToFile()
-    print("--- %s seconds ---" % (time.time() - start_time))
