@@ -5,8 +5,8 @@ import time
 
 class Youtube:
 
-    def __init__(self, fileName='test', URL='https://www.youtube.com/watch?v=dQw4w9WgXcQ'):
-        self.file = str(fileName)
+    def __init__(self, file='test', URL='https://www.youtube.com/watch?v=dQw4w9WgXcQ'):
+        self.file = str(file)
         self.url = URL
         self.path = {'home' : 'backend\\data\\youtuberawdata'}
         self.ext = self.file + '.en.vtt'
@@ -18,10 +18,15 @@ class Youtube:
         output = {'default' : self.file}
 
         ydl_opts = {
+            'format' : 'wav/bestaudio/best',
+            'postprocessors': [{
+                'key': 'FFmpegExtractAudio',
+                'preferredcodec' : 'wav',
+            }],
             'writesubtitles' : True,
             'writeautomaticsub' : True,
             'forcefilename' : True,
-            'skip_download' : True,
+            'skip_download' : False,
             'paths' : self.path,
             'outtmpl' : output
         }
@@ -32,16 +37,17 @@ class Youtube:
             ydl.download(URL)
 
     def ReadCaptions(self):
+        time.sleep(1)
         cap =''
         for caption in webvtt.read(self.read):
             cap = cap + caption.text + ' '
         savename = self.file + '.txt'
         location = os.path.join(self.savepath, savename)
-        print(location)
-        print(savename)
+        cap.strip('\n')
         f = open(location, 'a')
         f.write(cap)
         f.close
+        #os.remove(self.read)
 
 
 
@@ -49,7 +55,7 @@ class Youtube:
 
 
 if __name__ == '__main__':
-    Test = Youtube(URL='https://www.youtube.com/watch?v=j3OqAN4ISOw&t=11s&pp=ygUJdG9tIHNjb3R0')
+    Test = Youtube(fileName='Rickroll')
     Test.Download()
-    time.sleep(1)
     Test.ReadCaptions()
+    time.sleep(2)
