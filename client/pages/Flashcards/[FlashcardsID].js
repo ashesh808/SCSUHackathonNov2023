@@ -45,8 +45,9 @@ export default function Flashcards () {
         })
 
         const flashcard_data = await flashcardResponse.json()
+        const combinedArray = [].concat(...flashcard_data)
         if (Array.isArray (flashcard_data) === true) {
-          setShuffledCards (flashcard_data[0])
+          setShuffledCards (combinedArray)
         }
         else {
           // Handle error
