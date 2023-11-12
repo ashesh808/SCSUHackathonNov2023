@@ -25,7 +25,7 @@ The Flashcard Generator API allows users to upload PDF documents, send YouTube v
   - If successful:
     ```json
     {
-      "id": unique_id
+      "id": "your_file_unique_id"
     }
     ```
   - If error:
