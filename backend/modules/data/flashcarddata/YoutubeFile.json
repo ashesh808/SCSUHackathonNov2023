@@ -6,39 +6,39 @@
     },
     {
       "question": "Why are they sending garlic bread?",
-      "answer": "Because it's delicious and someone already sent pizza before."
+      "answer": "Because it's delicious and someone already sent pizza up in a balloon."
     },
     {
-      "question": "How do they track the balloon?",
-      "answer": "They use radio trackers that send GPS positions to the ground."
+      "question": "What is the purpose of sending objects on balloons?",
+      "answer": "Mostly as publicity stunts."
     }
   ],
   [
     {
-      "question": "What are they sending to the edge of space?",
+      "question": "What object are they sending to the edge of space?",
       "answer": "Garlic bread."
     },
     {
-      "question": "Why are they sending garlic bread?",
-      "answer": "Because it's delicious and someone already sent pizza up in a balloon before."
+      "question": "Why are they sending garlic bread to the edge of space?",
+      "answer": "Because it's delicious and someone has already sent pizza up in a balloon before."
     },
     {
-      "question": "What is the K\u00e1rm\u00e1n Line?",
-      "answer": "The completely arbitrary line that marks the beginning of space, about 100 kilometers up."
+      "question": "What do they expect to happen to the garlic bread in space?",
+      "answer": "It may freeze and be in near-vacuum."
     }
   ],
   [
     {
-      "question": "What is the topic of this block of text?",
-      "answer": "It is about a conversation between two people related to cars and space bread."
+      "question": "What were Barry and the speaker doing?",
+      "answer": "Chasing the payload and looking for a place to park."
     },
     {
-      "question": "Who are the two people mentioned in the text?",
-      "answer": "Barry and Steve."
+      "question": "What did the speaker say about the cameras?",
+      "answer": "They're still running."
     },
     {
-      "question": "What is the experiment involving the bread?",
-      "answer": "The bread was frozen in the stratosphere and then eaten."
+      "question": "Who did the speaker thank at the end?",
+      "answer": "Steve Randall from Random Aerospace and Barry Lewis from My Virgin Kitchen."
     }
   ]
 ]
