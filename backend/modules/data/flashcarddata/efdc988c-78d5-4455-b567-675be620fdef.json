@@ -1,0 +1,16 @@
+[
+  [
+    {
+      "question": "What is the main topic of the article?",
+      "answer": "Racial disparities in mortgage lending."
+    },
+    {
+      "question": "What are some factors that contribute to the racial disparities in mortgage lending?",
+      "answer": "Income, loan history, and other financial metrics."
+    },
+    {
+      "question": "How can algorithms in the mortgage industry result in racial bias?",
+      "answer": "Algorithms that prioritize risk minimization may perpetuate racial disparities."
+    }
+  ]
+]
