@@ -9,11 +9,11 @@ class GPTClientWrapper:
     def __init__(self):
         self.client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
     
-    def get_flashcards_json(self, prompt):
+    def get_flashcards_with_tags(self, prompt):
         completion = self.client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
-                {"role": "system", "content": "You an intelligent teacher's assistant, who when given a block of text generates flash cards for it in Json format with the fields questions and answers. You respond in one line with only 3 flashcards without using new lines."},
+                {"role": "system", "content": "You an intelligent teacher's assistant, who when given a block of text generates flash cards for it. You answer in one line your questions are marked with <question> tag and answers are marked with <answer> tag. For example: <questions> What is the capital of France? <answer> Paris<questions> Who is the president of the USA? <answer> Joe Biden"},
                 {"role": "user", "content": prompt}
             ]
         )
