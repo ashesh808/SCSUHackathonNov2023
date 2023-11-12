@@ -13,28 +13,51 @@ export default function JSONData () {
   const router = useRouter()
   const [waiting, setWaiting] = React.useState(false)
 
-  function onSuccess (acceptedFiles) {
-    setWaiting (true)
-
-    // This is where we make our first API call
-    fetch('https://jsonplaceholder.typicode.com/todos/1')
-    .then(response => response.json())
-    .then(data => {
-      // Close the WaitModal after receiving the response
+  function onSuccess(acceptedFiles) {
+    setWaiting(true);
+  
+    try {
+      const file = acceptedFiles;
+  
+      if (!file) {
+        throw new Error("No file selected");
+      }
+  
+      if (!file.type.includes("json")) {
+        throw new Error("Invalid file type. Please upload a JSON file.");
+      }
+  
+      const reader = new FileReader();
+  
+      reader.onload = () => {
+        try {
+          const jsonData = JSON.parse(reader.result);
+  
+          // Now you can use jsonData in your application
+          console.log(jsonData);
+  
+          router.push({
+            pathname: "/Flashcards/JSON",
+            //query: { data: JSON.stringify(jsonData) },
+          });
+        } catch (parseError) {
+          throw new Error("Error parsing JSON: " + parseError.message);
+        }
+      };
+  
+      reader.onerror = (error) => {
+        throw new Error("Error reading file: " + error.message);
+      };
+  
+      reader.readAsText(file);
+    } catch (error) {
+      console.error(error.message);
       setWaiting(false);
-
-      // Additional logic with the response data
-      alert(JSON.stringify (data));
-
-      router.push('/Flashcards')
-    })
-    .catch(error => {
-      // Handle errors, close the WaitModal, and show an error message
-      setWaiting(false);
-      console.error("Error fetching data:", error);
-      alert("Error fetching data. Please try again.\n" + error);
-    })
+      alert(error.message);
+    }
   }
+  
+  
   
   return (
     <Box>
