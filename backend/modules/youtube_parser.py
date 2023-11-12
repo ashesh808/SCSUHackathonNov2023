@@ -67,8 +67,10 @@ class YoutubeParser(Youtube):
     
 
 if __name__ == '__main__':
+    name = input('Input file name ')
+    URL = input('Input URl ')
     start_time = time.time()
-    test = YoutubeParser(file='LPL', Url='https://www.youtube.com/watch?v=tJI2e8V1tNI')
+    test = YoutubeParser(file=name, Url=URL)
     #test.file = 'Rickroll'
     #test.url = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
     test.Download()
