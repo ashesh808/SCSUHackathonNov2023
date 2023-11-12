@@ -10,15 +10,28 @@ import { useDropzone } from 'react-dropzone';
  * @param {Object} props
  * @param {string} props.title The big text at the top of the box
  * @param {string} props.subtitle The small text at the bottom of the box
+ * @param {string} props.onDropCallback The function called when the files are uploaded
  * @returns {JSX.Element} An UploadBox component.
  */
-export default function UploadBox ({ title, subtitle }) {
-  const onDrop = useCallback((acceptedFiles) => {
-    // Handle the dropped files here
-    console.log(acceptedFiles);
-  }, []);
-
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+export default function UploadBox ({ title, subtitle, onSuccess, onError, acceptedTypes }) {
+  const {
+    acceptedFiles: files,
+    fileRejections,
+    getRootProps,
+    getInputProps,
+    isDragActive
+  } = useDropzone({
+    accept: acceptedTypes,
+    maxFiles: 1,
+    multiple: false,
+    onDrop: (acceptedFiles, fileRejections) => {
+      if (fileRejections.length > 0) {
+        onError(`Invalid file type. Accepted types: ${acceptedFiles.join(', ')}`);
+      } else if (acceptedFiles.length === 1) {
+        onSuccess(acceptedFiles[0]);
+      }
+    },
+  })
 
   return (
     <Box sx={{

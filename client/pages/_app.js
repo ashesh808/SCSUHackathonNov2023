@@ -1,7 +1,6 @@
-import { Box, Grid, Typography } from "@mui/material"
+import { Box, Grid } from "@mui/material"
 import CssBaseline from '@mui/material/CssBaseline';
-import PageHeader from '../components/PageHeader'
-import SideBar from "@/components/SideBar";
+import SideBar from "@/components/SideBar"
 
 let style = {
   display: "flex",
@@ -10,7 +9,7 @@ let style = {
   justifyContent: "space-between"
 }
 
-export default function Home() {
+export default function MyApp ({ Component, pageProps }) {
   return (
     <Box style={style}>
       <CssBaseline />
@@ -21,10 +20,7 @@ export default function Home() {
         <Grid item xs={9} md={10}>
           <Box sx={{padding: "1rem"}}>
             {/* Content goes here */}
-            <PageHeader title="Welcome!" />
-            <Typography align="center" variant="body1">
-              Please selection an option on the left to begin!
-            </Typography>
+            <Component {...pageProps} />
           </Box>
         </Grid>
       </Grid>
