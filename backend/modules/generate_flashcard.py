@@ -12,7 +12,7 @@ class FlashCardGenerator:
 
     def ReadData(self, dataformat):
         if (dataformat == "pdf"):
-            pdf_parser = PdfParser(file_name=self.id + ".pdf")
+            pdf_parser = PdfParser(file_name=self.id)
             parsed_data = pdf_parser.pdf_to_text()
             self.parsed_data = parsed_data
         else:
@@ -27,24 +27,40 @@ class FlashCardGenerator:
             raise ValueError("No data available. Call ReadData first to parse data.")
     
     def save_json_response_withprefix(self, jsonResponse, prefixID):
-        #jsonResponse = json.loads(jsonResponse) Convert the response to proper json
         response_id = str(uuid.uuid4())
         filename = f"{prefixID}_response_{response_id}.json"
         filepath = os.path.join('data/rawgptdata', filename)
         with open(filepath, 'w') as json_file:
-            json.dump(jsonResponse, json_file)
+            json.dump(jsonResponse, json_file, indent=2)
         return filename
     
     def merge_json_response(self, prefixID):
         return "Not implemented"
     
+    def parse_string_to_json(self,input_string):
+        data_list = []
+        sets = input_string.split("<questions>")
+        for set_part in sets[1:]:
+            set_parts = set_part.split("<answer>")
+            if len(set_parts) == 2:
+                question, answer = set_parts
+                question = question.strip()
+                answer = answer.strip()
+            data_list.append({"question": question, "answer": answer})
+        return data_list
+
+
     def send_query(self):
         prefixID = str(uuid.uuid4())
         gpt_wrapper = GPTClientWrapper()
         substrings = self.batch_strings()
         name = ":not executed"
         for i, substring in enumerate(substrings):
-            jsonResponse = gpt_wrapper.get_flashcards_json(substring)
+            #Get response from GPT client
+            gptResponse = gpt_wrapper.get_flashcards_with_tags(substring)
+            #Convert string response to json
+            jsonResponse = self.parse_string_to_json(gptResponse)
+            #Save the file as Json
             name = self.save_json_response_withprefix(jsonResponse, prefixID)
         return "Last Json file saved with name " + name
     
@@ -56,5 +72,9 @@ if __name__ == "__main__":
     flashcard_generator.batch_strings()
     response = flashcard_generator.send_query()
     print(response)
+
+    input_string = "<questions> What is the capital of France? <answer> Paris<questions> Who is the president of the USA? <answer> Joe Biden"
+    parsed_data = flashcard_generator.parse_string_to_json(input_string)
+    print(parsed_data)
 
 

@@ -49,11 +49,6 @@ class Youtube:
         f.close
         #os.remove(self.read)
 
-
-
-        
-
-
 if __name__ == '__main__':
     Test = Youtube(fileName='Rickroll')
     Test.Download()
