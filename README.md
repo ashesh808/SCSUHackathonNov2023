@@ -204,5 +204,6 @@ python app.py
 ```
 
 Please see Requirements.txt for dependencies before running the application.
+FFMPEG is required and you can download it here. https://ffmpeg.org/download.html
 
 The application will run in debug mode and can be accessed at `http://127.0.0.1:5000/` in your web browser.
