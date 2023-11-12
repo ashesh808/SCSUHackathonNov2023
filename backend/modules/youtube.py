@@ -47,7 +47,7 @@ class Youtube:
         f = open(location, 'a')
         f.write(cap)
         f.close
-        #os.remove(self.read)
+        os.remove(self.read)
 
 if __name__ == '__main__':
     Test = Youtube(fileName='Rickroll')
