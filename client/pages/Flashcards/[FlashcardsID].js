@@ -1,33 +1,13 @@
 import React, { useState } from "react"
+import { useRouter } from 'next/router';
 import { Box, Avatar, Tooltip, Pagination, Grid } from "@mui/material"
 import ShuffleIcon from '@mui/icons-material/Shuffle';
 import ReplayIcon from '@mui/icons-material/Replay';
-import "../components/clickable.css";
-import InfoCard from "../components/InfoCard"
-import SpeakContent from "../components/SpeakContent"
-import PageHeader from '../components/PageHeader'
-import DownloadIcon from '@mui/icons-material/Download';
+import "../../components/clickable.css";
+import InfoCard from "../../components/InfoCard"
+import SpeakContent from "../../components/SpeakContent"
+import PageHeader from '../../components/PageHeader'
 
-// const cardNumber = 2
-// const questionText = "What is 9+10?"
-// const answerText = "This is a stupid meme from like 10 years ago"
-
-// const cards = [
-//   {
-//     questionText: "What is 9+10?",
-//     answerText: "This is a stupid meme from like 10 years ago",
-//   },
-//   {
-//     questionText: "what is the meaning of life?",
-//     answerText: "42",
-//   },
-//   {
-//     questionText: "why do they call it oven when you of in the cold food of out hot eat the food?",
-//     answerText: "yes",
-//   }
-// ]
-
-//api placeholder
 let cards = []
 for (let i = 0; i < 50; i++) {
   cards.push({
@@ -39,8 +19,10 @@ for (let i = 0; i < 50; i++) {
 export default function Flashcards () {
   const [currentPage, setCurrentPage] = useState(1);
   const [shuffledCards, setShuffledCards] = useState(cards);
-
   const [showAnswer, setShowAnswer] = useState(false);
+
+  const router = useRouter();
+  const { FlashcardsID } = router.query;
 
   const shuffleCards = () => {
     // Use a copy of the original cards array to avoid mutating the original array
@@ -52,19 +34,6 @@ export default function Flashcards () {
     setShuffledCards(newShuffledCards);
     setCurrentPage(1); // Reset to the first page after shuffling
   };
-
-  const downloadJson = () => {
-    const jsonContent = JSON.stringify(cards, null, 2);
-    const blob = new Blob([jsonContent], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'flashcards.json';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  };
   
   const handleChangePage = (event, page) => {
     setCurrentPage(page);
@@ -72,7 +41,7 @@ export default function Flashcards () {
 
   const currentCardIndex = (currentPage - 1) % shuffledCards.length;
   const currentCard = shuffledCards[currentCardIndex];
-  
+
   return (
     <Box>
       <PageHeader title="Learn" />
@@ -110,14 +79,7 @@ export default function Flashcards () {
               </Avatar>
             </Tooltip>
           </Grid>
-          <Grid item xs={2}>
-          <Tooltip title="Download JSON" onClick={downloadJson}>
-            <Avatar className="clickable">
-              <DownloadIcon style={{ color: 'black' }} />
-            </Avatar>
-          </Tooltip>
-        </Grid>
-          <Grid item xs={4} />
+          <Grid item xs={6} />
           <Grid item xs={2} style={{display: "flex", justifyContent: "flex-end"}} >
               {showAnswer
                 ? <SpeakContent textToSpeak={currentCard.answerText} />
