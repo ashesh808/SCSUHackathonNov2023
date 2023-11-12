@@ -35,7 +35,29 @@ class FlashCardGenerator:
         return filename
     
     def merge_json_response(self, prefixID):
-        return "Not implemented"
+        # List JSON files in the 'data/rawgptdata' directory with the specified prefixID
+        json_files = [file for file in os.listdir('data/rawgptdata') if file.startswith(prefixID) and file.endswith('.json')]
+
+        # Initialize an empty list to store the merged JSON objects
+        merged_data = []
+
+        # Read and merge the contents of matching JSON files
+        for json_file in json_files:
+            filepath = os.path.join('data/rawgptdata', json_file)
+            with open(filepath, 'r') as file:
+                json_content = json.load(file)
+                # Append the JSON content to the merged_data list
+                merged_data.append(json_content)
+
+        # Generate a unique filename for the merged JSON response
+        merged_filename = f'merged_response_{prefixID}.json'
+        merged_filepath = os.path.join('data/rawgptdata', merged_filename)
+
+        # Write the merged JSON data to the unique JSON file
+        with open(merged_filepath, 'w') as merged_file:
+            json.dump(merged_data, merged_file)
+
+        return "Merged JSON data for prefixID {} saved with name {}".format(prefixID, merged_filename)
     
     def send_query(self):
         prefixID = str(uuid.uuid4())
@@ -48,6 +70,7 @@ class FlashCardGenerator:
         return "Last Json file saved with name " + name
     
 if __name__ == "__main__":
+    '''
     id = 'FS260-Paper-1'
     dataformat = 'pdf'
     flashcard_generator = FlashCardGenerator(id)
@@ -55,5 +78,11 @@ if __name__ == "__main__":
     flashcard_generator.batch_strings()
     response = flashcard_generator.send_query()
     print(response)
+    '''
+
+    flashcard_generator = FlashCardGenerator('merge_test')
+    prefixID = '69f1d5c7-1f21-4b46-a557-f7529a68ebae'
+    merged_response = flashcard_generator.merge_json_response(prefixID)
+    print(merged_response)
 
 
