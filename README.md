@@ -203,6 +203,6 @@ To run the application, execute the following command in the terminal:
 python app.py
 ```
 
-Ensure that Flask is installed (`pip install Flask`) before running the application.
+Please see Requirements.txt for dependencies before running the application.
 
 The application will run in debug mode and can be accessed at `http://127.0.0.1:5000/` in your web browser.
