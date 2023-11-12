@@ -12,40 +12,60 @@ import DownloadIcon from '@mui/icons-material/Download';
 //put If subDir is JSON like Flashcards/JSON then get the query data and parse it 
 
 export default function Flashcards () {
+  
   const [currentPage, setCurrentPage] = useState(1);
-  const [cards, setCards] = useState([]);
-  const [shuffledCards, setShuffledCards] = useState(cards);
+  const [shuffledCards, setShuffledCards] = useState([]);
   const [showAnswer, setShowAnswer] = useState(false);
 
   const router = useRouter();
   const { FlashcardsID } = router.query;
 
-  React.useEffect(async ()=>{
-    try {
-      // Get flash card data
-      const flashcardResponse = await fetch(`https://localhost:5000/getflashcarddata?id=${FlashcardsID}`, {
-        method: 'GET',
-      })
-      if (Array.isArray (flashcardResponse.flashcard_data) === true) {
-        setCards (flashcardResponse.flashcard_data)
-      }
-      else {
-        // Handle error
-        console.error('Error getting flashcard data');
-        alert('Error getting flashcard data');
-      }
+  React.useEffect(()=>{
+    async function getFlashcardData() {
 
-    } catch (error) {
-      console.error(error);
-      alert(error);
+      if (FlashcardsID === undefined) {
+        return;
+      }
+      
+      //flashcardID is undefined when refreshing the page
+      console.log(FlashcardsID)
+      if (FlashcardsID === "JSON") {
+        //get from json query data
+        console.log("fetching JSON from query data")
+        const data = router.query.data
+        setShuffledCards(JSON.parse(data))
+        //console.log(JSON.parse(data))
+
+      } else {
+    
+      try {
+        // Get flash card data
+        const flashcardResponse = await fetch(`https://localhost:5000/getflashcarddata?id=${FlashcardsID}`, {
+          method: 'GET',
+        })
+        if (Array.isArray (flashcardResponse.flashcard_data) === true) {
+          setShuffledCards (flashcardResponse.flashcard_data)
+        }
+        else {
+          // Handle error
+          console.error('Error getting flashcard data');
+          alert('Error getting flashcard data');
+        }
+
+      } catch (error) {
+        console.error(error);
+        alert(error);
+      }
     }
-  }, [])
+  }
+    getFlashcardData()
+  }, [FlashcardsID])
 
-  if (cards.length <= 0) return null
+  if (shuffledCards.length <= 0) return null
 
   const shuffleCards = () => {
     // Use a copy of the original cards array to avoid mutating the original array
-    const newShuffledCards = [...cards];
+    const newShuffledCards = [...shuffledCards];
     for (let i = newShuffledCards.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [newShuffledCards[i], newShuffledCards[j]] = [newShuffledCards[j], newShuffledCards[i]];
@@ -59,7 +79,7 @@ export default function Flashcards () {
   };
 
   const downloadJson = () => {
-    const jsonContent = JSON.stringify(cards, null, 2);
+    const jsonContent = JSON.stringify(shuffledCards, null, 2);
     const blob = new Blob([jsonContent], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -72,6 +92,7 @@ export default function Flashcards () {
   };
 
   const currentCardIndex = (currentPage - 1) % shuffledCards.length;
+
   const currentCard = shuffledCards[currentCardIndex];
 
   return (
@@ -79,7 +100,7 @@ export default function Flashcards () {
       <PageHeader title="Learn" />
 
       <Box style={{ display: "flex", justifyContent: "center", marginBottom: "0.5rem"}}>
-        <Pagination count={cards.length} page={currentPage} onChange={handleChangePage} />
+        <Pagination count={shuffledCards.length} page={currentPage} onChange={handleChangePage} />
       </Box>
       
       <Box style={{ paddingRight: "5rem", paddingLeft: "5rem" }}>
