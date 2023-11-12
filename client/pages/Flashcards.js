@@ -30,6 +30,8 @@ export default function Flashcards () {
   const [currentPage, setCurrentPage] = useState(1);
   const [shuffledCards, setShuffledCards] = useState(cards);
 
+  const [showAnswer, setShowAnswer] = useState(false);
+
   const shuffleCards = () => {
     // Use a copy of the original cards array to avoid mutating the original array
     const newShuffledCards = [...cards];
@@ -57,7 +59,7 @@ export default function Flashcards () {
       </Box>
       
       <Box style={{ paddingRight: "5rem", paddingLeft: "5rem"}}>
-        <InfoCard cardNumber={currentCardIndex + 1} questionText={currentCard.questionText} answerText={currentCard.answerText} currentCardIndex={currentCardIndex} />
+        <InfoCard cardNumber={currentCardIndex + 1} questionText={currentCard.questionText} answerText={currentCard.answerText} showAnswer={showAnswer} setShowAnswer={setShowAnswer} />
       </Box>
 
       <Grid container justifyContent="center" alignItems="center" style={{ marginTop: "1rem", marginBottom: "1rem", paddingRight: "5rem", paddingLeft: "5rem" }}>
@@ -70,16 +72,17 @@ export default function Flashcards () {
         </Grid>
         <Grid item xs={2}>
           <Tooltip title="Shuffle" onClick={shuffleCards}>
-            <Avatar className="clickable">
-              <ShuffleIcon />
+            <Avatar className="clickable" style={{ backgroundColor: 'transparent' }}>
+              <ShuffleIcon style={{ color: 'black' }}/>
             </Avatar>
           </Tooltip>
         </Grid>
         <Grid item xs={6} />
         <Grid item xs={2}>
-          <Tooltip title="Speak">
-            <SpeakContent textToSpeak="hello world" />
-          </Tooltip>
+            {showAnswer
+              ? <SpeakContent textToSpeak={currentCard.answerText} />
+              : <SpeakContent textToSpeak={currentCard.questionText} />
+            }
         </Grid>
       </Grid>
     </Box>

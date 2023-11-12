@@ -13,21 +13,24 @@ import { useEffect } from "react";
  * @param {string} props.answerText The answer
  * @returns {JSX.Element} An InfoCard component.
  */
-export default function InfoCard ({ cardNumber, questionText, answerText}) {
-  const [showAnswer, setShowAnswer] = React.useState(false);
-  const [rotateAnimation, setRotateAnimation] = React.useState(true);
+export default function InfoCard ({ cardNumber, questionText, answerText, showAnswer, setShowAnswer}) {
+  const [rotateAnimation, setRotateAnimation] = React.useState(false); //true is 180deg, false is 0deg
+
+
 
   useEffect(() => {
     setShowAnswer(false);
-    setRotateAnimation(rotateAnimation);
+    setRotateAnimation(rotateAnimation); //keep current state so it doesnt flip
   }, [cardNumber])
+
+
 
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
       <Paper elevation={5} className="clickable" style={{ padding: "1rem", transform: rotateAnimation ? "rotateY(180deg)" : "rotateY(0deg)", minHeight: '17rem', maxWidth: "30rem", width: "100%"}}
         onClick={() => {
           setShowAnswer(!showAnswer) 
-          setRotateAnimation(!rotateAnimation)
+          setRotateAnimation(!rotateAnimation) //flip card
         }}
       >
         <Box style={{ transform: rotateAnimation ? "rotateY(180deg)" : "rotateY(0deg)" }}>
