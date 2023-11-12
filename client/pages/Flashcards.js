@@ -6,6 +6,7 @@ import "../components/clickable.css";
 import InfoCard from "../components/InfoCard"
 import SpeakContent from "../components/SpeakContent"
 import PageHeader from '../components/PageHeader'
+import DownloadIcon from '@mui/icons-material/Download';
 
 // const cardNumber = 2
 // const questionText = "What is 9+10?"
@@ -26,6 +27,7 @@ import PageHeader from '../components/PageHeader'
 //   }
 // ]
 
+//api placeholder
 let cards = []
 for (let i = 0; i < 50; i++) {
   cards.push({
@@ -49,6 +51,19 @@ export default function Flashcards () {
     }
     setShuffledCards(newShuffledCards);
     setCurrentPage(1); // Reset to the first page after shuffling
+  };
+
+  const downloadJson = () => {
+    const jsonContent = JSON.stringify(cards, null, 2);
+    const blob = new Blob([jsonContent], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'flashcards.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   };
   
   const handleChangePage = (event, page) => {
@@ -95,7 +110,14 @@ export default function Flashcards () {
               </Avatar>
             </Tooltip>
           </Grid>
-          <Grid item xs={6} />
+          <Grid item xs={2}>
+          <Tooltip title="Download JSON" onClick={downloadJson}>
+            <Avatar className="clickable">
+              <DownloadIcon style={{ color: 'black' }} />
+            </Avatar>
+          </Tooltip>
+        </Grid>
+          <Grid item xs={4} />
           <Grid item xs={2} style={{display: "flex", justifyContent: "flex-end"}} >
               {showAnswer
                 ? <SpeakContent textToSpeak={currentCard.answerText} />
