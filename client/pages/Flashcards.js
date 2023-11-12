@@ -66,33 +66,44 @@ export default function Flashcards () {
         <Pagination count={cards.length} page={currentPage} onChange={handleChangePage} />
       </Box>
       
-      <Box style={{ paddingRight: "5rem", paddingLeft: "5rem"}}>
+      <Box style={{ paddingRight: "5rem", paddingLeft: "5rem" }}>
         <InfoCard cardNumber={currentCardIndex + 1} questionText={currentCard.questionText} answerText={currentCard.answerText} showAnswer={showAnswer} setShowAnswer={setShowAnswer} />
       </Box>
 
-      <Grid container justifyContent="center" alignItems="center" style={{ marginTop: "1rem", marginBottom: "1rem", paddingRight: "5rem", paddingLeft: "5rem" }}>
-        <Grid item xs={2} style={{ textAlign: 'center'}}>
-          <Tooltip title="Regenerate">
-            <Avatar className="clickable" style={{ backgroundColor: 'transparent' }}>
-              <ReplayIcon style={{ color: 'black' }}/>
-            </Avatar>
-          </Tooltip>
+      <Box style={{display: "flex", justifyContent: "center", paddingRight: "5rem", paddingLeft: "5rem"}}>
+        <Grid
+          container
+          justifyContent="center"
+          alignItems="center"
+          style={{
+            marginTop: "1rem",
+            marginBottom: "1rem",
+            maxWidth: "30rem",
+            width: "100%"
+          }}>
+          <Grid item xs={2}>
+            <Tooltip title="Regenerate">
+              <Avatar className="clickable">
+                <ReplayIcon style={{ color: 'black' }}/>
+              </Avatar>
+            </Tooltip>
+          </Grid>
+          <Grid item xs={2}>
+            <Tooltip title="Shuffle" onClick={shuffleCards}>
+              <Avatar className="clickable">
+                <ShuffleIcon style={{ color: 'black' }}/>
+              </Avatar>
+            </Tooltip>
+          </Grid>
+          <Grid item xs={6} />
+          <Grid item xs={2} style={{display: "flex", justifyContent: "flex-end"}} >
+              {showAnswer
+                ? <SpeakContent textToSpeak={currentCard.answerText} />
+                : <SpeakContent textToSpeak={currentCard.questionText} />
+              }
+          </Grid>
         </Grid>
-        <Grid item xs={2} style={{ textAlign: 'center'}}>
-          <Tooltip title="Shuffle" onClick={shuffleCards}>
-            <Avatar className="clickable" style={{ backgroundColor: 'transparent' }}>
-              <ShuffleIcon style={{ color: 'black' }}/>
-            </Avatar>
-          </Tooltip>
-        </Grid>
-        <Grid item xs={6} style={{ textAlign: 'center'}} />
-          <Grid item xs={12} style={{ display: 'flex', justifyContent: 'center', maginTop: '1rem'}}>
-            {showAnswer
-              ? <SpeakContent textToSpeak={currentCard.answerText} />
-              : <SpeakContent textToSpeak={currentCard.questionText} />
-            }
-        </Grid>
-      </Grid>
+      </Box>
     </Box>
   )
 }

@@ -19,7 +19,7 @@ export default function SpeakContent ({ textToSpeak }) {
 
   return (
     <div>
-      <Avatar className="clickable" onClick={handleSpeak} style={{ backgroundColor: 'transparent' }}>
+      <Avatar className="clickable" onClick={handleSpeak}>
         <CampaignIcon style={{ color: 'black' }}/>
       </Avatar>
     </div>
