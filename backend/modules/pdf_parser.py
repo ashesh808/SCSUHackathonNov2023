@@ -3,7 +3,7 @@ import os
 
 class PdfParser:
     def __init__(self, file_name):
-        self.pdf_path = os.path.join('data/pdfdocument/',file_name)
+        self.pdf_path = os.path.join('data/pdfdocument/',file_name + '.pdf')
 
     def pdf_to_text(self):
         text = ""
@@ -24,14 +24,14 @@ class PdfParser:
         cleaned_text = ' '.join(lines)
         return cleaned_text
 
-if __name__ == "__main__":
-    pdf_file_name = "test.pdf"
-    pdf_parser = PdfParser(file_name=pdf_file_name)
+# if __name__ == "__main__":
+#     pdf_file_name = "test"
+#     pdf_parser = PdfParser(file_name=pdf_file_name)
 
-    try:
-        pdf_text = pdf_parser.pdf_to_text()
-        print(f"PDF text:\n{pdf_text}")
-    except FileNotFoundError as e:
-        print(f"Error: {e}")
-    except Exception as e:
-        print(f"An unexpected error occurred: {str(e)}")
+#     try:
+#         pdf_text = pdf_parser.pdf_to_text()
+#         print(f"PDF text:\n{pdf_text}")
+#     except FileNotFoundError as e:
+#         print(f"Error: {e}")
+#     except Exception as e:
+#         print(f"An unexpected error occurred: {str(e)}")
