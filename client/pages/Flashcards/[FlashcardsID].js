@@ -8,21 +8,30 @@ import InfoCard from "../../components/InfoCard"
 import SpeakContent from "../../components/SpeakContent"
 import PageHeader from '../../components/PageHeader'
 
-let cards = []
-for (let i = 0; i < 50; i++) {
-  cards.push({
-    questionText: `question: ${i+1}`,
-    answerText: `answer: ${i+1}`,
-  })
-}
-
 export default function Flashcards () {
   const [currentPage, setCurrentPage] = useState(1);
+  const [cards, setCards] = useState([]);
   const [shuffledCards, setShuffledCards] = useState(cards);
   const [showAnswer, setShowAnswer] = useState(false);
 
   const router = useRouter();
   const { FlashcardsID } = router.query;
+
+  React.useEffect(async ()=>{
+    try {
+      // Get flash card data
+      const flashcardResponse = await fetch(`https://localhost:5000/getflashcarddata?url=${FlashcardsID}`, {
+        method: 'GET',
+      })
+      setCards (response.flashcard_data)
+
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
+  }, [])
+
+  if (cards.length <= 0) return null
 
   const shuffleCards = () => {
     // Use a copy of the original cards array to avoid mutating the original array
@@ -51,7 +60,7 @@ export default function Flashcards () {
       </Box>
       
       <Box style={{ paddingRight: "5rem", paddingLeft: "5rem" }}>
-        <InfoCard cardNumber={currentCardIndex + 1} questionText={currentCard.questionText} answerText={currentCard.answerText} showAnswer={showAnswer} setShowAnswer={setShowAnswer} />
+        <InfoCard cardNumber={currentCardIndex + 1} questionText={currentCard.question} answerText={currentCard.answer} showAnswer={showAnswer} setShowAnswer={setShowAnswer} />
       </Box>
 
       <Box style={{display: "flex", justifyContent: "center", paddingRight: "5rem", paddingLeft: "5rem"}}>
@@ -82,8 +91,8 @@ export default function Flashcards () {
           <Grid item xs={6} />
           <Grid item xs={2} style={{display: "flex", justifyContent: "flex-end"}} >
               {showAnswer
-                ? <SpeakContent textToSpeak={currentCard.answerText} />
-                : <SpeakContent textToSpeak={currentCard.questionText} />
+                ? <SpeakContent textToSpeak={currentCard.answer} />
+                : <SpeakContent textToSpeak={currentCard.question} />
               }
           </Grid>
         </Grid>
