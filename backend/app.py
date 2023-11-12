@@ -6,7 +6,7 @@ from modules.flashcard_viewer import FlashCardViewer
 app = Flask(__name__)
 
 
-UPLOAD_FOLDER = 'data/pdfdocument'
+UPLOAD_FOLDER = '/Users/ashesh808/Documents/BSCinCS/Fall23/Hackathon/SCSUHackathonNov2023/backend/modules/data/pdfdocument'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 pdf_uploader = PDFUploader(app)
 
@@ -21,6 +21,10 @@ def upload_pdf():
     result = pdf_uploader.upload_pdf(file)
     return jsonify(result)
 
+@app.route('/sendyoutubeurl', methods=['POST'])
+def send_youtube_url():
+    youtube_url = request.args.get('url')
+    return jsonify({'message': 'Youtube video link recieved successfully'})
 
 @app.route('/generatecards', methods=['GET'])
 def generate_flashcards():
@@ -33,7 +37,7 @@ def get_flashcard_data():
     flashcard_id = request.args.get('id')
     if not flashcard_id:
         return jsonify({'error': 'ID parameter is missing'})
-    flashcard_viewer = FlashCardViewer(flashcard_id)
+    flashcard_viewer = FlashCardViewer(ID=flashcard_id)
     path = flashcard_viewer.ReturnPath()
     flashcard_data = flashcard_viewer.ReadJson()
     return jsonify({'message': 'Flashcard data retrieved successfully', 'path': path, 'data': flashcard_data})

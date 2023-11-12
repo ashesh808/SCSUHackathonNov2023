@@ -1,5 +1,6 @@
 from pdf_parser import PdfParser
 from gpt_client_wrapper import GPTClientWrapper
+from gpt_client_wrapper import GPTClientWrapper
 import uuid
 import json
 import os
