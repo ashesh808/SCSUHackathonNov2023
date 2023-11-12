@@ -38,7 +38,7 @@ def generate_flashcards():
     response = flashcard_generator.send_query()
     print(response)
     # You may want to parse the PDF and create flashcards
-    return jsonify({'message': 'Flashcards generated successfully'})
+    return jsonify({'id': id})
 
 @app.route('/getflashcarddata', methods=['GET'])
 def get_flashcard_data():
