@@ -2,8 +2,8 @@ import PyPDF2
 import os
 
 class PdfParser:
-    def __init__(self, file_name):
-        self.pdf_path = os.path.join('/Users/ashesh808/Documents/BSCinCS/Fall23/Hackathon/SCSUHackathonNov2023/backend/modules/data/pdfdocument',file_name + '.pdf')
+    def __init__(self, pdf_path, file_name):
+        self.pdf_path = os.path.join(pdf_path,file_name + '.pdf')
 
     def pdf_to_text(self):
         text = ""
