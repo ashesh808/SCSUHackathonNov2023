@@ -70,7 +70,6 @@ class FlashCardGenerator:
         return "Last Json file saved with name " + name
     
 if __name__ == "__main__":
-    '''
     id = 'FS260-Paper-1'
     dataformat = 'pdf'
     flashcard_generator = FlashCardGenerator(id)
@@ -78,11 +77,5 @@ if __name__ == "__main__":
     flashcard_generator.batch_strings()
     response = flashcard_generator.send_query()
     print(response)
-    '''
-
-    flashcard_generator = FlashCardGenerator('merge_test')
-    prefixID = '69f1d5c7-1f21-4b46-a557-f7529a68ebae'
-    merged_response = flashcard_generator.merge_json_response(prefixID)
-    print(merged_response)
 
 
