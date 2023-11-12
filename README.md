@@ -66,7 +66,7 @@ The Flashcard Generator API allows users to upload PDF documents, send YouTube v
 - JSON Object:
   ```json
   {
-    "message": "Flashcards generated successfully"
+    "id": "your-unique-id"
   }
   ```
 ### Note
