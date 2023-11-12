@@ -14,6 +14,12 @@ class FlashCardGenerator:
             pdf_parser = PdfParser(file_name=self.id)
             parsed_data = pdf_parser.pdf_to_text()
             self.parsed_data = parsed_data
+        elif(dataformat == "yt"):
+            txt_file_path = "modules/data/youtubeparseddata/" + self.id + ".txt"
+            if os.path.exists(txt_file_path):
+                with open(txt_file_path, 'r', encoding='utf-8') as txt_file:
+                    parsed_data = txt_file.read()
+                self.parsed_data = parsed_data
         else:
             raise NotImplementedError("Data format not supported yet")
 
@@ -27,7 +33,7 @@ class FlashCardGenerator:
     
     def save_json_response_withprefix(self, jsonResponse):
         filename = self.id + ".json"
-        filepath = os.path.join('/Users/ashesh808/Documents/BSCinCS/Fall23/Hackathon/SCSUHackathonNov2023/backend/modules/data/flashcarddata', filename)
+        filepath = os.path.join('modules/data/flashcarddata', filename)
         with open(filepath, 'w') as json_file:
             json.dump(jsonResponse, json_file, indent=2)
         return filename

@@ -5,18 +5,17 @@ import time
 
 class Youtube:
 
-    def __init__(self, file='test', URL='https://www.youtube.com/watch?v=dQw4w9WgXcQ'):
+    def __init__(self, yt_rawdata_path, yt_parseddata_path, file='test', URL='https://www.youtube.com/watch?v=dQw4w9WgXcQ'):
         self.file = str(file)
         self.url = URL
-        self.path = {'home' : 'backend\\modules\\data\\youtuberawdata'}
+        self.path = {'home' : yt_rawdata_path}
         self.ext = self.file + '.en.vtt'
-        self.read = os.path.join('backend\\modules\\data\\youtuberawdata', self.ext)
-        self.savepath = ('backend\\modules\\data\\youtubeparseddata')
+        self.read = os.path.join(yt_rawdata_path, self.ext)
+        self.savepath = yt_parseddata_path
 
 
     def Download(self):
         output = {'default' : self.file}
-
         ydl_opts = {
             'format' : 'wav/bestaudio/best',
             'postprocessors': [{
@@ -30,9 +29,7 @@ class Youtube:
             'paths' : self.path,
             'outtmpl' : output
         }
-
         URL = [self.url]
-
         with YoutubeDL(ydl_opts) as ydl :
             ydl.download(URL)
 

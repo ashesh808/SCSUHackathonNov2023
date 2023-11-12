@@ -2,13 +2,13 @@ import os
 import json
 
 class FlashCardViewer:
-    def __init__(self, ID):
+    def __init__(self, ID, flashcard_path):
         self.FlashID = ID
-        self.path = self.ReturnPath()
+        self.path = self.ReturnPath(flashcard_path)
 
-    def ReturnPath(self):
+    def ReturnPath(self, flashcard_path):
         self.FlashID = str(self.FlashID)
-        return os.path.join('/Users/ashesh808/Documents/BSCinCS/Fall23/Hackathon/SCSUHackathonNov2023/backend/modules/data/flashcarddata', f"{self.FlashID}.json")
+        return os.path.join(flashcard_path, f"{self.FlashID}.json")
 
     def ReadJson(self):
         try:
@@ -22,21 +22,3 @@ class FlashCardViewer:
         except Exception as e:
             return f"An unexpected error occurred: {str(e)}"
 
-if __name__ == "__main__":
-    # Replace 'test' with the actual ID you want to test
-    viewer = FlashCardViewer(ID="test")
-
-    # Test case 1: Read an existing JSON file
-    try:
-        json_data = viewer.ReadJson()
-        print("Test Case 1 Result:", json_data)
-    except Exception as e:
-        print("Test Case 1 Error:", str(e))
-
-    # Test case 2: Read a non-existing JSON file
-    viewer.FlashID = "non_existing_file"
-    try:
-        json_data = viewer.ReadJson()
-        print("Test Case 2 Result:", json_data)
-    except Exception as e:
-        print("Test Case 2 Error:", str(e))
