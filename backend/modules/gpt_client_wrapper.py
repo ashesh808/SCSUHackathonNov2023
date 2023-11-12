@@ -13,7 +13,7 @@ class GPTClientWrapper:
         completion = self.client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
-                {"role": "system", "content": "You an intelligent teacher's assistant, who when given a block of text generates flash cards for it in Json format with the feilds questions and answers.You respond in one line with only 3 flashcards without using new lines."},
+                {"role": "system", "content": "You an intelligent teacher's assistant, who when given a block of text generates flash cards for it in Json format with the fields questions and answers. You respond in one line with only 3 flashcards without using new lines."},
                 {"role": "user", "content": prompt}
             ]
         )
