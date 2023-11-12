@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from modules.pdf_uploader import PDFUploader
 from modules.generate_flashcard import FlashCardGenerator
 from modules.flashcard_viewer import FlashCardViewer
@@ -7,6 +8,8 @@ import uuid
 import os
 
 app = Flask(__name__)
+
+CORS(app)
 
 #This is the folder where pdf will be downloaded to 
 dirName = os.path.dirname(__file__)

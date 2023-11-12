@@ -24,21 +24,22 @@ export default function UploadPDF () {
       formData.append('file', uploadedFile);
 
       // Upload data to server
-      const uploadResponse = await fetch('https://localhost:5000/uploadpdf', {
+      const uploadResponse = await fetch('http://localhost:5000/uploadpdf', {
         method: 'POST',
         body: formData,
       });
-      
+            
       // Tell server to generate flashcards for the uploaded document
-      const documentID = uploadResponse.id
-      const generateResponse = await fetch(`https://localhost:5000/generatecards?id=${documentID}&dataformat=pdf`, {
+      const {id: documentID} = await uploadResponse.json()
+      const generateResponse = await fetch(`http://localhost:5000/generatecards?id=${documentID}&dataformat=pdf`, {
         method: 'GET',
       })
 
       if (generateResponse.ok) {
         // Transition to the flashcards page using the given ID
-        const flashcardsID = generateResponse.message
+        const { id: flashcardsID } = await generateResponse.json()
         router.push(`/Flashcards/${flashcardsID}`)
+        
       } else {
         // Handle error
         console.error('Error submitting data');

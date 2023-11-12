@@ -40,11 +40,13 @@ export default function Flashcards () {
     
       try {
         // Get flash card data
-        const flashcardResponse = await fetch(`https://localhost:5000/getflashcarddata?id=${FlashcardsID}`, {
+        const flashcardResponse = await fetch(`http://localhost:5000/getflashcarddata?id=${FlashcardsID}`, {
           method: 'GET',
         })
-        if (Array.isArray (flashcardResponse.flashcard_data) === true) {
-          setShuffledCards (flashcardResponse.flashcard_data)
+
+        const flashcard_data = await flashcardResponse.json()
+        if (Array.isArray (flashcard_data) === true) {
+          setShuffledCards (flashcard_data[0])
         }
         else {
           // Handle error
