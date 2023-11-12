@@ -4,6 +4,8 @@ from pydub import AudioSegment
 from pydub.silence import split_on_silence
 from youtube import Youtube
 import time
+import shutil
+
 
 class YoutubeParser(Youtube):
 
@@ -12,7 +14,8 @@ class YoutubeParser(Youtube):
         self.extaud = self.file + '.wav'
         self.readaud = os.path.join('backend\\data\\youtuberawdata',self.extaud)
         self.saveaud = ('backend\\data\\youtubeparseddata')
-
+    
+    
     def ParseAudio(self, path):
         r = sr.Recognizer()
 
@@ -22,6 +25,7 @@ class YoutubeParser(Youtube):
             text = r.recognize_google(audioListened)
             return(text)
         
+    
     def LargeAudioParse(self):
         sound = AudioSegment.from_file(self.readaud)
 
@@ -58,6 +62,8 @@ class YoutubeParser(Youtube):
         f = open(path, 'a')
         f.write(self.text)
         f.close()
+        shutil.rmtree('backend\\data\\youtuberawdata\\AudioChunks')
+        os.remove(self.readaud)
     
 
 if __name__ == '__main__':
