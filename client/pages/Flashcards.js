@@ -11,20 +11,28 @@ import PageHeader from '../components/PageHeader'
 // const questionText = "What is 9+10?"
 // const answerText = "This is a stupid meme from like 10 years ago"
 
-const cards = [
-  {
-    questionText: "What is 9+10?",
-    answerText: "This is a stupid meme from like 10 years ago",
-  },
-  {
-    questionText: "what is the meaning of life?",
-    answerText: "42",
-  },
-  {
-    questionText: "why do they call it oven when you of in the cold food of out hot eat the food?",
-    answerText: "yes",
-  }
-]
+// const cards = [
+//   {
+//     questionText: "What is 9+10?",
+//     answerText: "This is a stupid meme from like 10 years ago",
+//   },
+//   {
+//     questionText: "what is the meaning of life?",
+//     answerText: "42",
+//   },
+//   {
+//     questionText: "why do they call it oven when you of in the cold food of out hot eat the food?",
+//     answerText: "yes",
+//   }
+// ]
+
+let cards = []
+for (let i = 0; i < 50; i++) {
+  cards.push({
+    questionText: `question: ${i+1}`,
+    answerText: `answer: ${i+1}`,
+  })
+}
 
 export default function Flashcards () {
   const [currentPage, setCurrentPage] = useState(1);
@@ -76,13 +84,13 @@ export default function Flashcards () {
           <Grid item xs={2}>
             <Tooltip title="Regenerate">
               <Avatar className="clickable">
-                <ReplayIcon />
+                <ReplayIcon style={{ color: 'black' }}/>
               </Avatar>
             </Tooltip>
           </Grid>
           <Grid item xs={2}>
             <Tooltip title="Shuffle" onClick={shuffleCards}>
-              <Avatar className="clickable" style={{ backgroundColor: 'transparent' }}>
+              <Avatar className="clickable">
                 <ShuffleIcon style={{ color: 'black' }}/>
               </Avatar>
             </Tooltip>
