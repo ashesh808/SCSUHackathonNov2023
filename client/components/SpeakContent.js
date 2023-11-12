@@ -1,7 +1,7 @@
 'use client'
 
 import CampaignIcon from '@mui/icons-material/Campaign';
-import { Avatar } from '@mui/material'
+import { Avatar, Tooltip } from '@mui/material'
 import "./clickable.css";
 
 /**
@@ -19,9 +19,11 @@ export default function SpeakContent ({ textToSpeak }) {
 
   return (
     <div>
+      <Tooltip title="speak">
       <Avatar className="clickable" onClick={handleSpeak}>
         <CampaignIcon style={{ color: 'black' }}/>
       </Avatar>
+      </Tooltip>
     </div>
   )
 }

@@ -9,28 +9,38 @@ import WaitModal from "@/components/WaitModal";
 export default function YouTubeLink () {
   const router = useRouter()
   const [waiting, setWaiting] = React.useState(false)
+  const [urlText, setUrlText] = React.useState("")
 
-  function onSubmit (acceptedFiles) {
+  async function onSubmit () {
     setWaiting (true)
+    
+    try {
+      // Upload data to server
+      const sendResponse = await fetch(`https://localhost:5000/sendyoutubeurl?url=${urlText}`, {
+        method: 'POST',
+      });
+      
+      // Tell server to generate flashcards for the uploaded document
+      const documentID = sendResponse.id
+      const generateResponse = await fetch(`https://localhost:5000/generatecards?id=${documentID}&dataformat=yt`, {
+        method: 'GET',
+      })
 
-    // This is where we make our first API call
-    fetch('https://jsonplaceholder.typicode.com/todos/1')
-    .then(response => response.json())
-    .then(data => {
-      // Close the WaitModal after receiving the response
-      setWaiting(false);
+      if (generateResponse.ok) {
+        // Transition to the flashcards page using the given ID
+        const flashcardsID = generateResponse.message
+        router.push(`/Flashcards/${flashcardsID}`)
+      } else {
+        // Handle error
+        console.error('Error submitting data');
+        alert('Error submitting data');
+      }
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
 
-      // Additional logic with the response data
-      alert(JSON.stringify (data));
-
-      router.push('/Flashcards')
-    })
-    .catch(error => {
-      // Handle errors, close the WaitModal, and show an error message
-      setWaiting(false);
-      console.error("Error fetching data:", error);
-      alert("Error fetching data. Please try again.\n" + error);
-    })
+    setWaiting(false)
   }
   
   return (
@@ -42,7 +52,8 @@ export default function YouTubeLink () {
           label="YouTube Link"
           variant="outlined"
           fullWidth
-          autoFocus 
+          autoFocus
+          onChange={(event)=>setUrlText(event.target.value)}
           style={{maxWidth: "30rem"}}
           InputProps={{
             startAdornment: (
@@ -52,7 +63,11 @@ export default function YouTubeLink () {
             ),
           }}
         />
-        <Button startIcon={<BackupIcon />} variant="contained" onClick={onSubmit}>
+        <Button
+          startIcon={<BackupIcon />}
+          variant="contained"
+          onClick={onSubmit}
+        >
           Submit
         </Button>
       </Box>
