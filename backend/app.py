@@ -53,7 +53,6 @@ def get_flashcard_data():
     if not flashcard_id:
         return jsonify({'error': 'ID parameter is missing'})
     flashcard_viewer = FlashCardViewer(flashcard_path=flashcard_data_path, ID=flashcard_id)
-    path = flashcard_viewer.ReturnPath()
     flashcard_data = flashcard_viewer.ReadJson()
     return flashcard_data
 
