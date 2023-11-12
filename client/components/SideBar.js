@@ -4,6 +4,7 @@ import Link from 'next/link';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import DataObjectIcon from '@mui/icons-material/DataObject';
+import SearchIcon from '@mui/icons-material/Search';
 
 const sideBarData = [
   {
@@ -20,6 +21,11 @@ const sideBarData = [
     title: 'Card Data',
     icon: DataObjectIcon,
     url: '/JSONData',
+  },
+  {
+    title: 'Browse',
+    icon: SearchIcon,
+    url: '/Browse',
   },
 ];
 
