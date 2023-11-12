@@ -20,7 +20,7 @@ export default function Flashcards () {
   React.useEffect(async ()=>{
     try {
       // Get flash card data
-      const flashcardResponse = await fetch(`https://localhost:5000/getflashcarddata?url=${FlashcardsID}`, {
+      const flashcardResponse = await fetch(`https://localhost:5000/getflashcarddata?id=${FlashcardsID}`, {
         method: 'GET',
       })
       if (Array.isArray (flashcardResponse.flashcard_data) === true) {

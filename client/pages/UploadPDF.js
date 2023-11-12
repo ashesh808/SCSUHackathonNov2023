@@ -31,15 +31,8 @@ export default function UploadPDF () {
       
       // Tell server to generate flashcards for the uploaded document
       const documentID = uploadResponse.id
-      const generateResponse = await fetch('https://localhost:5000/generatecards', {
+      const generateResponse = await fetch(`https://localhost:5000/generatecards?id=${documentID}&dataformat=pdf`, {
         method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          dataformat: 'pdf',
-          id: documentID,
-        }),
       })
 
       if (generateResponse.ok) {
