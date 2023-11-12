@@ -63,7 +63,16 @@ export default function Flashcards () {
       </Box>
 
       <Box style={{display: "flex", justifyContent: "center", paddingRight: "5rem", paddingLeft: "5rem"}}>
-        <Grid container justifyContent="center" alignItems="center" style={{ marginTop: "1rem", marginBottom: "1rem", maxWidth: "30rem", width: "100%" }}>
+        <Grid
+          container
+          justifyContent="center"
+          alignItems="center"
+          style={{
+            marginTop: "1rem",
+            marginBottom: "1rem",
+            maxWidth: "30rem",
+            width: "100%"
+          }}>
           <Grid item xs={2}>
             <Tooltip title="Regenerate">
               <Avatar className="clickable">
