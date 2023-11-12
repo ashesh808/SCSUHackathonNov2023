@@ -34,7 +34,7 @@ class FlashCardGenerator:
     
     def parse_string_to_json(self,input_string):
         data_list = []
-        sets = input_string.split("<questions>")
+        sets = input_string.split("<question>")
         for set_part in sets[1:]:
             set_parts = set_part.split("<answer>")
             if len(set_parts) == 2:
@@ -54,6 +54,7 @@ class FlashCardGenerator:
         for i, substring in enumerate(substrings):
             #Get response from GPT client
             gptResponse = gpt_wrapper.get_flashcards_with_tags(substring)
+            print(gptResponse)
             #Convert string response to json
             jsonResponse = self.parse_string_to_json(gptResponse)
             all_responses.append(jsonResponse)
@@ -61,17 +62,17 @@ class FlashCardGenerator:
         name = self.save_json_response_withprefix(all_responses)
         return "Last Json file saved with name " + name
     
-# if __name__ == "__main__":
-#     id = 'FS260-Paper-1'
-#     dataformat = 'pdf'
-#     flashcard_generator = FlashCardGenerator(id)
-#     flashcard_generator.ReadData(dataformat)
-#     flashcard_generator.batch_strings()
-#     response = flashcard_generator.send_query()
-#     print(response)
+if __name__ == "__main__":
+    id = 'FS260-Paper-1'
+    dataformat = 'pdf'
+    flashcard_generator = FlashCardGenerator(id)
+    flashcard_generator.ReadData(dataformat)
+    flashcard_generator.batch_strings()
+    response = flashcard_generator.send_query()
+    print(response)
 
-#     # input_string = "<questions> What is the capital of France? <answer> Paris<questions> Who is the president of the USA? <answer> Joe Biden"
-#     # parsed_data = flashcard_generator.parse_string_to_json(input_string)
-#     # print(parsed_data)
+    # input_string = "<questions> What is the capital of France? <answer> Paris<questions> Who is the president of the USA? <answer> Joe Biden"
+    # parsed_data = flashcard_generator.parse_string_to_json(input_string)
+    # print(parsed_data)
 
 
