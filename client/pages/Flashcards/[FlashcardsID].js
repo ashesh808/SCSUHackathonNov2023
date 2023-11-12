@@ -12,26 +12,36 @@ import DownloadIcon from '@mui/icons-material/Download';
 //put If subDir is JSON like Flashcards/JSON then get the query data and parse it 
 
 export default function Flashcards () {
-
-  let cards = [
-    {
-      questionText: "default question",
-      answerText: "default answer",
-    }
-  ]
+  const [currentPage, setCurrentPage] = useState(1);
+  const [cards, setCards] = useState([]);
+  const [shuffledCards, setShuffledCards] = useState(cards);
+  const [showAnswer, setShowAnswer] = useState(false);
 
   const router = useRouter();
   const { FlashcardsID } = router.query;
 
-  if (FlashcardsID === "JSON") {
-    const data = router.query.data;
-    cards = JSON.parse(data);
-    //console.log(cards)
-  }
-  
-  const [currentPage, setCurrentPage] = useState(1);
-  const [showAnswer, setShowAnswer] = useState(false);
-  const [shuffledCards, setShuffledCards] = useState(cards);
+  React.useEffect(async ()=>{
+    try {
+      // Get flash card data
+      const flashcardResponse = await fetch(`https://localhost:5000/getflashcarddata?id=${FlashcardsID}`, {
+        method: 'GET',
+      })
+      if (Array.isArray (flashcardResponse.flashcard_data) === true) {
+        setCards (flashcardResponse.flashcard_data)
+      }
+      else {
+        // Handle error
+        console.error('Error getting flashcard data');
+        alert('Error getting flashcard data');
+      }
+
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
+  }, [])
+
+  if (cards.length <= 0) return null
 
   const shuffleCards = () => {
     // Use a copy of the original cards array to avoid mutating the original array
@@ -73,7 +83,7 @@ export default function Flashcards () {
       </Box>
       
       <Box style={{ paddingRight: "5rem", paddingLeft: "5rem" }}>
-        <InfoCard cardNumber={currentCardIndex + 1} questionText={currentCard.questionText} answerText={currentCard.answerText} showAnswer={showAnswer} setShowAnswer={setShowAnswer} />
+        <InfoCard cardNumber={currentCardIndex + 1} questionText={currentCard.question} answerText={currentCard.answer} showAnswer={showAnswer} setShowAnswer={setShowAnswer} />
       </Box>
 
       <Box style={{display: "flex", justifyContent: "center", paddingRight: "5rem", paddingLeft: "5rem"}}>
@@ -111,8 +121,8 @@ export default function Flashcards () {
           <Grid item xs={4} />
           <Grid item xs={2} style={{display: "flex", justifyContent: "flex-end"}} >
               {showAnswer
-                ? <SpeakContent textToSpeak={currentCard.answerText} />
-                : <SpeakContent textToSpeak={currentCard.questionText} />
+                ? <SpeakContent textToSpeak={currentCard.answer} />
+                : <SpeakContent textToSpeak={currentCard.question} />
               }
           </Grid>
         </Grid>

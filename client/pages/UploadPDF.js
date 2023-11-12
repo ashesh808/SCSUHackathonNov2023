@@ -15,29 +15,43 @@ export default function UploadPDF () {
   const router = useRouter()
   const [waiting, setWaiting] = React.useState(false)
 
-  function onSuccess (acceptedFiles) {
+  async function onSuccess (uploadedFile) {
     setWaiting (true)
+    
+    try {
+      // Generate form data
+      const formData = new FormData();
+      formData.append('file', uploadedFile);
 
-    // This is where we make our first API call
-    fetch('https://jsonplaceholder.typicode.com/todos/1')
-    .then(response => response.json())
-    .then(data => {
-      // Close the WaitModal after receiving the response
-      setWaiting(false);
+      // Upload data to server
+      const uploadResponse = await fetch('https://localhost:5000/uploadpdf', {
+        method: 'POST',
+        body: formData,
+      });
+      
+      // Tell server to generate flashcards for the uploaded document
+      const documentID = uploadResponse.id
+      const generateResponse = await fetch(`https://localhost:5000/generatecards?id=${documentID}&dataformat=pdf`, {
+        method: 'GET',
+      })
 
-      // Additional logic with the response data
-      alert(JSON.stringify (data));
+      if (generateResponse.ok) {
+        // Transition to the flashcards page using the given ID
+        const flashcardsID = generateResponse.message
+        router.push(`/Flashcards/${flashcardsID}`)
+      } else {
+        // Handle error
+        console.error('Error submitting data');
+        alert('Error submitting data');
+      }
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
 
-      router.push('/Flashcards/5555')
-    })
-    .catch(error => {
-      // Handle errors, close the WaitModal, and show an error message
-      setWaiting(false);
-      console.error("Error fetching data:", error);
-      alert("Error fetching data. Please try again.\n" + error);
-    })
+    setWaiting(false)
   }
-  
+
   return (
     <Box>
       <PageHeader title="Upload PDF" />

@@ -11,6 +11,8 @@ import { useEffect } from "react";
  * @param {string} props.cardNumber The index of this card
  * @param {string} props.questionText The question
  * @param {string} props.answerText The answer
+ * @param {boolean} props.showAnswer Flips the card if true
+ * @param {Function} props.setShowAnswer Used to set showAnswer when the user clicks on a card
  * @returns {JSX.Element} An InfoCard component.
  */
 export default function InfoCard ({ cardNumber, questionText, answerText, showAnswer, setShowAnswer}) {

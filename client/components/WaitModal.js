@@ -5,6 +5,8 @@ import { Typography, Box, Modal, Button, Paper, CircularProgress } from '@mui/ma
 
 /**
  * Shows a pop-up with a load bar. Intended to be shown while waiting for a server response
+ * @param {Object} props
+ * @param {string} props.open Determines whether the modal should be open 
  * @returns {JSX.Element} A WaitModal component.
  */
 export default function WaitModal ({ open }) {
