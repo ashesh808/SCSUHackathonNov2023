@@ -73,7 +73,7 @@ if __name__ == '__main__':
     #test.url = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
     test.Download()
     print(test.read)
-    test.ReadCaptions()
-    test.LargeAudioParse()
+    test.ReadCaptions() 
+    test.LargeAudioParse() #Speech to text
     test.WriteToFile()
     print("--- %s seconds ---" % (time.time() - start_time))

@@ -8,10 +8,10 @@ class Youtube:
     def __init__(self, file='test', URL='https://www.youtube.com/watch?v=dQw4w9WgXcQ'):
         self.file = str(file)
         self.url = URL
-        self.path = {'home' : 'backend\\modules\\data\\youtuberawdata'}
+        self.path = {'home' : 'backend/modules/data/youtuberawdata'}
         self.ext = self.file + '.en.vtt'
-        self.read = os.path.join('backend\\modules\\data\\youtuberawdata', self.ext)
-        self.savepath = ('backend\\modules\\data\\youtubeparseddata')
+        self.read = os.path.join('backend/modules/data/youtuberawdata', self.ext)
+        self.savepath = ('backend/modules/data/youtubeparseddata')
 
 
     def Download(self):

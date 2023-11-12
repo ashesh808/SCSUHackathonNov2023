@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from modules.pdf_uploader import PDFUploader
 from modules.generate_flashcard import FlashCardGenerator
 from modules.flashcard_viewer import FlashCardViewer
+from modules.youtube_parser import YoutubeParser
 
 
 app = Flask(__name__)
@@ -25,6 +26,9 @@ def upload_pdf():
 @app.route('/sendyoutubeurl', methods=['POST'])
 def send_youtube_url():
     youtube_url = request.args.get('url')
+    youtube_parser = YoutubeParser("YoutubeFile",youtube_url)
+    youtube_parser.Download()
+    
     return jsonify({'message': 'Youtube video link recieved successfully'})
 
 @app.route('/generatecards', methods=['GET'])
