@@ -25,7 +25,7 @@ class Youtube:
             'writesubtitles' : True,
             'writeautomaticsub' : True,
             'forcefilename' : True,
-            'skip_download' : False,
+            'skip_download' : True,
             'paths' : self.path,
             'outtmpl' : output
         }

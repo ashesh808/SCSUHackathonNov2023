@@ -62,20 +62,6 @@ class YoutubeParser(Youtube):
         f = open(path, 'a')
         f.write(self.text)
         f.close()
-        shutil.rmtree('modules/data/youtuberawdata/AudioChunks')
+        shutil.rmtree(os.path.join(self.yt_rawdata_path,'AudioChunks'))
         os.remove(self.readaud)
     
-
-if __name__ == '__main__':
-    name = input('Input file name ')
-    URL = input('Input URl ')
-    start_time = time.time()
-    test = YoutubeParser(file=name, Url=URL)
-    #test.file = 'Rickroll'
-    #test.url = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-    test.Download()
-    print(test.read)
-    test.ReadCaptions() 
-    test.LargeAudioParse() #Speech to text
-    test.WriteToFile()
-    print("--- %s seconds ---" % (time.time() - start_time))
