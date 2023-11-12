@@ -4,14 +4,17 @@ from modules.generate_flashcard import FlashCardGenerator
 from modules.flashcard_viewer import FlashCardViewer
 from modules.youtube_parser import YoutubeParser
 import uuid
+import os
 
 app = Flask(__name__)
 
 #This is the folder where pdf will be downloaded to 
-UPLOAD_FOLDER = '/Users/ashesh808/Documents/BSCinCS/Fall23/Hackathon/SCSUHackathonNov2023/backend/modules/data/pdfdocument'
-yt_rawdata_path = '/Users/ashesh808/Documents/BSCinCS/Fall23/Hackathon/SCSUHackathonNov2023/backend/modules/data/youtuberawdata'
-yt_parseddata_path = '/Users/ashesh808/Documents/BSCinCS/Fall23/Hackathon/SCSUHackathonNov2023/backend/modules/data/youtubeparseddata'
-get_flashcard_data_path = '/Users/ashesh808/Documents/BSCinCS/Fall23/Hackathon/SCSUHackathonNov2023/backend/modules/data/flashcarddata'
+dirName = os.path.dirname(__file__)
+UPLOAD_FOLDER = os.path.join(dirName, 'modules', 'data', 'pdfdocument')
+yt_rawdata_path = os.path.join(dirName, 'modules', 'data', 'youtuberawdata')
+yt_parseddata_path = os.path.join(dirName, 'modules', 'data', 'youtubeparseddata')
+get_flashcard_data_path = os.path.join(dirName, 'modules', 'data', 'flashcarddata')
+
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 pdf_uploader = PDFUploader(app)
