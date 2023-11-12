@@ -36,7 +36,7 @@ The Flashcard Generator API allows users to upload PDF documents, send YouTube v
   - If error:
     ```json
     {
-      "error": "No file part"  // or "No selected file"
+      "error": "No file part" 
     }
     ```
 
@@ -65,7 +65,7 @@ The Flashcard Generator API allows users to upload PDF documents, send YouTube v
 ### Request
 - Query Parameters:
   - `id`: Unique identifier for the flashcard generation.
-  - `dataformat`: Format of data to be processed.
+  - `dataformat`: Format of data to be processed can be "pdf" or "yt".
 
 ### Response
 - JSON Object:
