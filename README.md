@@ -15,7 +15,7 @@ It can process PDF files and YouTube links into flashcards for studying using GP
 
 To run the frontend, navigate to the client folder and type "npm install" if you're running it for the first time. Then type "npm run dev" and connect to localhost:3000 to view it in action.
 
-To run the backend, place a .env file with your OpenAPI token in the root directory(?). If you're running this for the first time you can install the necessary packages by running "pip install -r Requirements.txt". Then navigate to the backend folder and run "python app.py". The server will be available at localhost:5000.
+To run the backend, place a .env file with your OpenAPI token in the root directory(?). If you're running this for the first time you can install the necessary packages by running "pip install -r Requirements.txt". FFMPEG is also required and must be installed separately. You can download it here: https://ffmpeg.org/download.html. Then navigate to the backend folder and run "python app.py". The server will be available at localhost:5000.
 
 ## GeniusDeck API Documentation
 
@@ -207,16 +207,3 @@ curl http://127.0.0.1:5000/getflashcarddata?id=1
   ]
 ]
 ```
-
-## Running the Application
-
-To run the application, execute the following command in the terminal:
-
-```bash
-python app.py
-```
-
-Please see Requirements.txt for dependencies before running the application.
-FFMPEG is required and you can download it here. https://ffmpeg.org/download.html
-
-The application will run in debug mode and can be accessed at `http://127.0.0.1:5000/` in your web browser.
